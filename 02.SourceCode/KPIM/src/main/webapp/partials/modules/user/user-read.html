@@ -1,0 +1,144 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include src="'partials/template/header.html'"
+	data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+	<aside id="sidebar" data-ng-include src="'partials/template/sidebar-left.html'"
+		data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+	<aside id="chat" data-ng-include src="'partials/template/chat.html'"
+		data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+
+	<section id="content" class="page-view">
+		<div class="container">
+			<div class="block-header">
+				<h2>Users list</h2>
+			</div>
+
+			<div class="card">
+				<div class="card-header">
+					<h2>Search Form</h2>
+				</div>
+
+				<div class="card-body card-padding">
+					<form class="row" role="form">
+						<div class="col-sm-3">
+							<div class="form-group fg-float m-b-30">
+								<div class="fg-line">
+									<input type="text" class="input-sm form-control fg-input" ng-model="userSearchForm.username"> <label
+										class="fg-label">Username</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group fg-float m-b-30">
+								<div class="fg-line">
+									<input type="text" class="input-sm form-control fg-input" ng-model="userSearchForm.email"> <label
+										class="fg-label">Email</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group text-right">
+								<button ng-click="search()" class="btn bgm-blue waves-effect"><i class="zmdi zmdi-search"></i> Search</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<kendo-grid id="mainGrid" options="mainGridOptions" data-current-skin={{mactrl.currentSkin}}>
+					<div k-detail-template>
+						<kendo-tabstrip>
+						<ul>
+							<li class="k-state-active">Information</li>
+							<li>Authorities</li>
+						</ul>
+						<div class="information">
+							<div class="col-md-12 content-list">
+								<div class="col-md-2 col-xs-4">
+									<img class="img-thumbnail img-response w-100" ng-src="{{dataItem.avatar}}" alt="">
+								</div>
+								<div class="col-md-10 col-xs-8">
+									<div class="col-md-6 col-sm-12">
+										<dl class="dl-horizontal">
+											<dt>Id</dt>
+											<dd>{{dataItem.id}}</dd>
+										</dl>
+										<dl class="dl-horizontal">
+											<dt>Username</dt>
+											<dd>{{dataItem.username}}</dd>
+										</dl>
+										<dl class="dl-horizontal">
+											<dt>Full name</dt>
+											<dd>{{dataItem.fullName}}</dd>
+										</dl>
+										<dl class="dl-horizontal">
+											<dt>Role</dt>
+											<dd>{{dataItem.role.roleName}}</dd>
+										</dl>
+									</div>
+									<div class="col-md-6 col-sm-12">
+										<dl class="dl-horizontal">
+											<dt>Phone</dt>
+											<dd>{{dataItem.phone}}</dd>
+										</dl>
+										<dl class="dl-horizontal">
+											<dt>Email</dt>
+											<dd>{{dataItem.email}}</dd>
+										</dl>
+										<dl class="dl-horizontal">
+											<dt>Birthday</dt>
+											<dd>{{dataItem.birthday}}</dd>
+										</dl>
+										<dl class="dl-horizontal">
+											<dt>Address</dt>
+											<dd>{{dataItem.address}}</dd>
+										</dl>
+									</div>
+								</div>
+							</div>
+							<div class="m-t-20 pull-right">
+								<div class="col-md-12">
+									<a access="user-update" ng-click="editUser(dataItem)" class="btn btn-icon-text waves-effect btn-primary"><i
+										class="zmdi zmdi-check-square"></i>Update</a> <a access="user-delete" ng-click="deleteUser(dataItem)"
+										class="btn btn-icon-text waves-effect btn-danger"><i class="zmdi zmdi-close"></i>Delete</a>
+								</div>
+							</div>
+						</div>
+						<div>
+							<div class="col-md-12">
+								<div class="authority {{dataItem.username}}"></div>
+							</div>
+							<div class="m-t-20 pull-right">
+								<div class="col-md-12">
+									<a access="user-update" ng-click="updateAuthorities(dataItem)"
+										class="btn btn-icon-text waves-effect btn-primary"><i class="zmdi zmdi-check-square"></i>Update</a>
+								</div>
+							</div>
+						</div>
+						</kendo-tabstrip>
+					</div>
+					</kendo-grid>
+				</div>
+			</div>
+		</div>
+	</section>
+</section>
+
+<footer id="footer" data-ng-include src="'partials/template/footer.html'"></footer>
+<script type="text/x-kendo-template" id="template-toolbar">
+    <a access="user-create" role="button" class="k-button k-button-icontext" ng-click="createNewUser()">
+         <span class="k-icon k-i-add"></span>Add new
+    </a>
+	<a access="user-delete" role="button" class="k-button k-button-icontext" id="btnDelete" style="display:none;" ng-click="deleteUsers()">
+		<span class="k-icon k-i-delete"></span>Delete
+	</a>
+	<a access="user-import" role="button" class="k-button k-button-icontext" ng-click="importUser()">
+		<span class="k-icon k-i-file-add"></span>Import
+	</a>
+	<a access="user-export" role="button" class="k-button k-button-icontext" ng-click="exportExcel()">
+		<span class="k-icon k-i-file-excel"></span>Export Excel
+	</a>
+</script>

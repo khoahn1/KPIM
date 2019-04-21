@@ -1,0 +1,24 @@
+<div class="modal-header">
+	<h4 class="modal-title">Import user</h4>
+</div>
+<div class="modal-body">
+	<form name="myForm" method="POST" novalidate class="form-horizontal" enctype="multipart/form-data">
+		<div class="col-sm-12">
+			<div class="form-group" ng-class="{'has-error' : myForm.file.$invalid}">
+				<div class="fileinput fileinput-new" data-provides="fileinput">
+					<span class="btn btn-primary btn-file m-r-10"> <span class="fileinput-new">Select file import</span> <span
+						class="fileinput-exists">Change file</span> <input type="file" id="file"ng-model="file" file-model="file"
+						name="file">
+					</span> <span class="fileinput-filename"></span> <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+				</div>
+				<div class="help-block" ng-show="myForm.file.$invalid">{{myForm.file.$error.message}}</div>
+			</div>
+		</div>
+	</form>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="uploadFile()" class="btn btn-raised btn-small btn-primary">Import</button>
+	<button ng-click="cancel()" class="btn btn-raised btn-default">Cancel</button>
+</div>

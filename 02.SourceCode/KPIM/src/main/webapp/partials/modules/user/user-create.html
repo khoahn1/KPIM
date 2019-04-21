@@ -1,0 +1,127 @@
+<div class="modal-header">
+	<h4 class="modal-title">Create user</h4>
+</div>
+<div class="modal-body">
+	<form name="myForm" method="POST" novalidate class="form-horizontal" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="col-md-3">
+					<div class="form-group" ng-class="{'has-error' : myForm.avatarFile.$invalid}">
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+							<div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+							<div>
+								<span class="btn btn-info btn-file"> <span class="fileinput-new">Select image</span> <span
+									class="fileinput-exists">Change</span> <input type="file" file-model="avatarFile" ng-model="avatarFile" name="avatarFile">
+								</span> <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+							</div>
+						</div>
+						 <small class="help-block"
+							ng-show="myForm.avatarFile.$invalid">{{myForm.avatarFile.$error.message}}</small>
+					</div>
+				</div>
+				<div class="col-md-5">
+
+					<div class="form-group" ng-class="{'has-error' : myForm.username.$invalid}">
+						<label for="username" class="col-sm-3 control-label">Username</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<input type="text" class="form-control" id="username" ng-model="user.username" name="username"
+									placeholder="Please input username...">
+							</div>
+							<small class="help-block" ng-show="myForm.username.$invalid">{{myForm.username.$error.message}}</small>
+						</div>
+					</div>
+
+					<div class="form-group" ng-class="{'has-error' : myForm.password.$invalid}">
+						<label for="password" class="col-sm-3 control-label">Password</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<input type="password" class="form-control" id="password" ng-model="user.password" name="password"
+									placeholder="Please input password...">
+							</div>
+							<small class="help-block" ng-show="myForm.password.$invalid">{{myForm.password.$error.message}}</small>
+						</div>
+					</div>
+
+					<div class="form-group" ng-class="{'has-error' : myForm.role.$invalid}">
+						<label for="authority" class="col-sm-3 control-label">Role</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<select chosen data-placeholder="Select a role..." class="w-100" id="role" name="role"
+									ng-model="user.role"
+									ng-options="role.roleName for role in roles track by role.id"></select>
+							</div>
+							<small class="help-block" ng-show="myForm.role.$invalid">{{myForm.role.$error.message}}</small>
+						</div>
+					</div>
+
+					<div class="form-group" ng-class="{'has-error' : myForm.fullName.$invalid}">
+						<label for="fullName" class="col-sm-3 control-label">Full name</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<input type="text" class="form-control" id="fullName" ng-model="user.fullName" name="fullName"
+									placeholder="Please input full name...">
+							</div>
+							<small class="help-block" ng-show="myForm.fullName.$invalid">{{myForm.fullName.$error.message}}</small>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-4">
+					<div class="form-group" ng-class="{'has-error' : myForm.phone.$invalid}">
+						<label for="phone" class="col-sm-3 control-label">Phone</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<input type="text" class="form-control" id="phone" ng-model="user.phone" name="phone"
+									placeholder="Please input phone">
+							</div>
+							<small class="help-block" ng-show="myForm.phone.$invalid">{{myForm.phone.$error.message}}</small>
+						</div>
+					</div>
+
+					<div class="form-group" ng-class="{'has-error' : myForm.email.$invalid}">
+						<label for="email" class="col-sm-3 control-label">Email</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<input type="text" class="form-control" id="email" ng-model="user.email" name="email"
+									placeholder="Please input email...">
+							</div>
+							<small class="help-block" ng-show="myForm.email.$invalid">{{myForm.email.$error.message}}</small>
+						</div>
+					</div>
+
+					<div class="form-group" ng-class="{'has-error' : myForm.birthday.$invalid}" data-ng-controller="DatepickerDemoCtrl">
+						<label for="birthday" class="col-sm-3 control-label">Birthday</label>
+						<div class="col-sm-9">
+							<div class="date-picker input-group dp-blue" ng-class="{ 'is-opened': opened == true }">
+								<div class="fg-line" ng-class="{ 'fg-toggled': opened == true }">
+									<input id="birthday" ng-click="open($event, 'opened')" type="text" class="form-control"
+										uib-datepicker-popup="{{format}}" show-weeks="false" is-open="opened" min-date="minDate"
+										datepicker-options="dateOptions" close-text="Close" placeholder="YYYY/MM/DD" ng-model="user.birthday"
+										name="birthday" />
+								</div>
+								<span class="input-group-addon last"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+							</div>
+							<small class="help-block" ng-show="myForm.birthday.$invalid">{{myForm.birthday.$error.message}}</small>
+						</div>
+					</div>
+
+					<div class="form-group" ng-class="{'has-error' : myForm.address.$invalid}">
+						<label for="address" class="col-sm-3 control-label">Address</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<input type="text" class="form-control" id="address" ng-model="user.address" name="address"
+									placeholder="Please input address">
+							</div>
+							<small class="help-block" ng-show="myForm.address.$invalid">{{myForm.address.$error.message}}</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="createNewUser()" class="btn btn-raised btn-small btn-primary">Create</button>
+	<button ng-click="cancel()" class="btn btn-raised btn-default">Cancel</button>
+</div>

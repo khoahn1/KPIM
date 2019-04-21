@@ -1,0 +1,55 @@
+<div class="notification" data-current-skin={{mactrl.currentSkin}}>
+	<div class="notificationImpExpBoardTitle">
+		<span class="noti_title ng-binding">Import, export data</span>
+		<span class="noti_action">
+			<a
+			href="javascript:void(0)" ng-click="minmaxImportExportBoard()">
+				<i class="zmdi zmdi-chevron-down"
+				ng-if="!isMinImportExportBoard"></i>
+				<i class="zmdi zmdi-chevron-up" ng-if="isMinImportExportBoard"></i>
+			</a>
+			<a href="javascript:void(0)" ng-click="expcompImportExportBoard()">
+				<i class="zmdi zmdi-fullscreen"
+				ng-if="!isExpImportExportBoard"></i>
+				<i class="zmdi zmdi-fullscreen-exit" ng-if="isExpImportExportBoard"></i>
+			</a>
+			<a href="javascript:void(0)" ng-click="closeImportExportBoard()">
+				<i class="zmdi zmdi-close"></i>
+			</a>
+		</span>
+	</div>
+	<div id="importExportContent" class="notificationImpExpBoardContent uln" ng-show="!isMinImportExportBoard">
+		<ul>
+			<li ng-repeat="item in allImportExportTask | orderBy:'indexTask':true">
+				<div ng-if="item.isExport">
+					<i class="zmdi zmdi-download"></i>
+					<h5>{{item.fileName}}</h5>
+					<span ng-hide="item.readyDownload"
+						ng-class="{'c-red': (item.status == 'Error'), 'c-blue' : (item.status == 'Completed')}" class="ng-hide c-blue">
+						<i class="loading-icon" ng-if="item.status == 'Processing'"></i>Download processing ...
+					</span>
+					<a href="{{item.url}}"
+						ng-show="item.readyDownload  && (item.status == 'Completed')" target="_self">Click here to download</a>
+					<i class="zmdi zmdi-check c-green"
+						ng-if="item.status == 'Completed'"></i>
+					<i class="zmdi zmdi-alert-triangle c-red" ng-if="item.status == 'Error'"></i>
+				</div>
+				<div ng-if="item.isImport">
+					<i class="zmdi zmdi-upload"></i>
+					<h5>{{item.fileName}}</h5>
+					<span ng-hide="item.readyUpload"
+						ng-class="{'c-red': (item.status == 'Error'), 'c-blue' : (item.status == 'Completed')}" class="ng-hide c-blue">
+						<i class="loading-icon" ng-if="item.status == 'Processing'"></i>Import processing ...
+					</span>
+					<span ng-show="item.readyUpload && (item.status == 'Completed')" target="_self" class="c-green">Import success</span>
+					<div ng-show="(item.status == 'Error')" class="c-red" ng-repeat="errorMessage in item.errorMessages track by $index">
+						<span>{{errorMessage}}</span>
+					</div>
+					<i class="zmdi zmdi-check c-green"
+						ng-if="item.status == 'Completed'"></i>
+					<i class="zmdi zmdi-alert-triangle c-red" ng-if="item.status == 'Error'"></i>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,104 @@
+<div class="login-content">
+
+	<!-- Login -->
+	<div class="lc-block" id="l-login" data-ng-class="{ 'toggled': login === 1 }" data-ng-if="login === 1">
+		<form ng-submit="loginFunc()">
+			<div class="form-group label-floating" ng-class="{'has-error is-focused' : authenticationError}">
+				<div class="input-group m-b-20">
+					<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+					<div class="fg-line">
+						<input type="text" class="form-control" placeholder="Username" ng-model="username">
+					</div>
+				</div>
+				<small class="help-block" ng-show="authenticationError">Please check your credentials and try again.</small>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+				<div class="fg-line">
+					<input type="password" class="form-control" placeholder="Password" ng-model="password">
+				</div>
+			</div>
+	
+	
+			<div class="clearfix"></div>
+	
+			<div class="checkbox">
+				<label> <input type="checkbox" value="" ng-model="rememberMe"> <i class="input-helper"></i> Keep me
+					signed in
+				</label>
+			</div>
+	
+			<button class="btn btn-login btn-danger btn-float">
+				<i class="zmdi zmdi-arrow-forward"></i>
+			</button>
+	
+			<ul class="login-navigation">
+				<li data-block="#l-register" class="bgm-red" data-ng-click="login = 0; register = 1">Register</li>
+				<li data-block="#l-forget-password" class="bgm-orange" data-ng-click="login = 0; forgot = 1">Forgot
+					Password?</li>
+			</ul>
+		</form>
+	</div>
+
+	<!-- Register -->
+	<div class="lc-block" id="l-register" data-ng-class="{ 'toggled': register === 1 }"
+		data-ng-if="register === 1">
+		<div class="input-group m-b-20">
+			<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+			<div class="fg-line">
+				<input type="text" class="form-control" placeholder="Username">
+			</div>
+		</div>
+
+		<div class="input-group m-b-20">
+			<span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+			<div class="fg-line">
+				<input type="text" class="form-control" placeholder="Email Address">
+			</div>
+		</div>
+
+		<div class="input-group m-b-20">
+			<span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+			<div class="fg-line">
+				<input type="password" class="form-control" placeholder="Password">
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<div class="checkbox">
+			<label> <input type="checkbox" value=""> <i class="input-helper"></i> Accept the license agreement
+			</label>
+		</div>
+
+		<a href="" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
+
+		<ul class="login-navigation">
+			<li data-block="#l-login" class="bgm-green" data-ng-click="register = 0; login = 1">Login</li>
+			<li data-block="#l-forget-password" class="bgm-orange" data-ng-click="register = 0; forgot = 1">Forgot
+				Password?</li>
+		</ul>
+	</div>
+
+	<!-- Forgot Password -->
+	<div class="lc-block" id="l-forget-password" data-ng-class="{ 'toggled': forgot === 1 }"
+		data-ng-if="forgot === 1">
+		<p class="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu risus. Curabitur commodo
+			lorem fringilla enim feugiat commodo sed ac lacus.</p>
+
+		<div class="input-group m-b-20">
+			<span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+			<div class="fg-line">
+				<input type="text" class="form-control" placeholder="Email Address">
+			</div>
+		</div>
+
+		<a href="" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
+
+		<ul class="login-navigation">
+			<li data-block="#l-login" class="bgm-green" data-ng-click="forgot = 0; login = 1">Login</li>
+			<li data-block="#l-register" class="bgm-red" data-ng-click="forgot = 0; register = 1">Register</li>
+		</ul>
+	</div>
+
+</div>
