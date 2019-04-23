@@ -14,15 +14,15 @@ public class UserDetailResDto {
 	private String username;
 	private String password;
 	private String birthday;
-	private Integer status;
-	private Integer gender;
-	private Integer maritalStatus;
+	private StatusDetailResDto status;
+	private GenderDetailResDto gender;
+	private MaritalStatusDetailResDto maritalStatus;
+	private RoleDetailResDto role;
 	private String address;
 	private String phone;
 	private String createdDate;
 	private String updatedDate;
 	private String createdBy;
 	private String updatedBy;
-	private RoleDetailResDto role;
 	private List<AuthorityDetailResDto> items;
 }

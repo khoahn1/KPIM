@@ -46,8 +46,9 @@ public class UserEntity extends Auditable<String> {
 	@Column(name = "full_name")
 	private String fullName;
 
-	@Column(name = "gender")
-	private Integer gender;
+	@ManyToOne
+	@JoinColumn(name = "gender_id", referencedColumnName = "id")
+	private GenderEntity gender;
 
 	@Column(name = "phone")
 	private String phone;
@@ -55,17 +56,20 @@ public class UserEntity extends Auditable<String> {
 	@Column(name = "avatar")
 	private String avatar;
 
-	@Column(name = "language")
-	private Integer language;
+	@ManyToOne
+	@JoinColumn(name = "language_id", referencedColumnName = "id")
+	private LanguageEntity language;
 
-	@Column(name = "marital_status")
-	private Integer maritalStatus;
+	@ManyToOne
+	@JoinColumn(name = "marital_status_id", referencedColumnName = "id")
+	private MaritalStatusEntity maritalStatus;
 
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "status")
-	private Integer status;
+	@ManyToOne
+	@JoinColumn(name = "status_id", referencedColumnName = "id")
+	private StatusEntity status;
 
 	@Column(name = "username")
 	private String username;

@@ -40,66 +40,50 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('branches.branch-create', {
-		url: '/branch-create',
-		templateUrl: 'partials/modules/branch/branch-create.html',
-		controller: 'BranchCreateController',
+	}).state('phases.phase-create', {
+		url: '/phase-create',
+		templateUrl: 'partials/modules/phase/phase-create.html',
+		controller: 'PhaseCreateController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('branches.branch-update', {
-		url: '/branch-update',
-		templateUrl: 'partials/modules/branch/branch-update.html',
-		controller: 'BranchUpdateController',
+	}).state('phases.phase-update', {
+		url: '/phase-update',
+		templateUrl: 'partials/modules/phase/phase-update.html',
+		controller: 'PhaseUpdateController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('partners.customers.customer-update', {
-		url: '/customer-update',
-		templateUrl: 'partials/modules/customer/customer-update.html',
-		controller: 'CustomerUpdateController',
+	}).state('type-of-works.type-of-work-create', {
+		url: '/type-of-work-create',
+		templateUrl: 'partials/modules/type-of-work/type-of-work-create.html',
+		controller: 'TypeOfWorkCreateController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('partners.customers.customer-create', {
-		url: '/customer-create',
-		templateUrl: 'partials/modules/customer/customer-create.html',
-		controller: 'CustomerCreateController',
+	}).state('type-of-works.type-of-work-update', {
+		url: '/type-of-work-update',
+		templateUrl: 'partials/modules/type-of-work/type-of-work-update.html',
+		controller: 'TypeOfWorkUpdateController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('partners.customers.customer-import', {
-		url: '/customer-import',
-		templateUrl: 'partials/modules/customer/customer-import.html',
-		controller: 'CustomerImportController',
+	}).state('units.unit-create', {
+		url: '/unit-create',
+		templateUrl: 'partials/modules/unit/unit-create.html',
+		controller: 'UnitCreateController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('partners.suppliers.supplier-create', {
-		url: '/supplier-create',
-		templateUrl: 'partials/modules/supplier/supplier-create.html',
-		controller: 'SupplierCreateController',
-		access: {
-			loginRequired: true,
-			authorizedRoles: [USER_ROLES.all]
-		}
-	}).state('partners.suppliers.supplier-update', {
-		url: '/supplier-update',
-		templateUrl: 'partials/modules/supplier/supplier-update.html',
-		controller: 'SupplierUpdateController',
-		access: {
-			loginRequired: true,
-			authorizedRoles: [USER_ROLES.all]
-		}
-	}).state('partners.suppliers.supplier-import', {
-		url: '/supplier-import',
-		templateUrl: 'partials/modules/supplier/supplier-import.html',
-		controller: 'SupplierImportController',
+	}).state('units.unit-update', {
+		url: '/unit-update',
+		templateUrl: 'partials/modules/unit/unit-update.html',
+		controller: 'UnitUpdateController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
@@ -154,10 +138,26 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('branches', {
-		url: '/branches',
-		templateUrl: 'partials/modules/branch/branch-read.html',
-		controller: 'BranchReadController',
+	}).state('phases', {
+		url: '/phases',
+		templateUrl: 'partials/modules/phase/phase-read.html',
+		controller: 'PhaseReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('type-of-works', {
+		url: '/type-of-works',
+		templateUrl: 'partials/modules/type-of-work/type-of-work-read.html',
+		controller: 'TypeOfWorkReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('units', {
+		url: '/units',
+		templateUrl: 'partials/modules/unit/unit-read.html',
+		controller: 'UnitReadController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]

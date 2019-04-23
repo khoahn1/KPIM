@@ -101,8 +101,8 @@
 							</div>
 							<div class="m-t-20 pull-right">
 								<div class="col-md-12">
-									<a access="user-update" ng-click="editUser(dataItem)" class="btn btn-icon-text waves-effect btn-primary"><i
-										class="zmdi zmdi-check-square"></i>Update</a> <a access="user-delete" ng-click="deleteUser(dataItem)"
+									<a ng-click="editUser(dataItem)" class="btn btn-icon-text waves-effect btn-primary"><i
+										class="zmdi zmdi-check-square"></i>Update</a> <a ng-click="deleteUser(dataItem)"
 										class="btn btn-icon-text waves-effect btn-danger"><i class="zmdi zmdi-close"></i>Delete</a>
 								</div>
 							</div>
@@ -113,7 +113,7 @@
 							</div>
 							<div class="m-t-20 pull-right">
 								<div class="col-md-12">
-									<a access="user-update" ng-click="updateAuthorities(dataItem)"
+									<a ng-click="updateAuthorities(dataItem)"
 										class="btn btn-icon-text waves-effect btn-primary"><i class="zmdi zmdi-check-square"></i>Update</a>
 								</div>
 							</div>
@@ -129,16 +129,16 @@
 
 <footer id="footer" data-ng-include src="'partials/template/footer.html'"></footer>
 <script type="text/x-kendo-template" id="template-toolbar">
-    <a access="user-create" role="button" class="k-button k-button-icontext" ng-click="createNewUser()">
+    <a role="button" class="k-button k-button-icontext" ng-click="createNewUser()">
          <span class="k-icon k-i-add"></span>Add new
     </a>
-	<a access="user-delete" role="button" class="k-button k-button-icontext" id="btnDelete" style="display:none;" ng-click="deleteUsers()">
+	<a role="button" class="k-button k-button-icontext" id="btnDelete" style="display:none;" ng-click="deleteUsers()">
 		<span class="k-icon k-i-delete"></span>Delete
 	</a>
-	<a access="user-import" role="button" class="k-button k-button-icontext" ng-click="importUser()">
+	<a role="button" class="k-button k-button-icontext" ng-click="importUser()">
 		<span class="k-icon k-i-file-add"></span>Import
 	</a>
-	<a access="user-export" role="button" class="k-button k-button-icontext" ng-click="exportExcel()">
+	<a role="button" class="k-button k-button-icontext" ng-click="exportExcel()">
 		<span class="k-icon k-i-file-excel"></span>Export Excel
 	</a>
 </script>

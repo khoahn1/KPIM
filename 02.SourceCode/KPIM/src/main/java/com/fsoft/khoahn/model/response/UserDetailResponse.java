@@ -15,15 +15,15 @@ public class UserDetailResponse {
 	private String username;
 	private String password;
 	private String birthday;
-	private Integer status;
-	private Integer gender;
-	private Integer maritalStatus;
 	private String address;
 	private String phone;
+	private StatusDetailResponse status;
+	private PhaseDetailResponse gender;
+	private MaritalStatusDetailResponse maritalStatus;
+	private RoleDetailResponse role;
 	private String createdDate;
 	private String updatedDate;
 	private String createdBy;
 	private String updatedBy;
-	private RoleDetailResponse role;
 	private List<AuthorityDetailResponse> items = new ArrayList<AuthorityDetailResponse>();
 }

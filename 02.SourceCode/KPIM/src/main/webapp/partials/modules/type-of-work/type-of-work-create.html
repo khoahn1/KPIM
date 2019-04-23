@@ -1,0 +1,36 @@
+<div class="modal-header">
+	<h4 class="modal-title">Create TypeOfWork</h4>
+</div>
+<div class="modal-body">
+	<form name="myForm" method="POST" novalidate class="form-horizontal">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group" ng-class="{'has-error' : myForm.typeName.$invalid}">
+					<label for="typeName" class="col-sm-3 control-label">Type name</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="typeName" ng-model="typeOfWork.typeName" name="typeName"
+								placeholder="Please input typeName...">
+						</div>
+						<small class="help-block" ng-show="myForm.typeName.$invalid">{{myForm.typeName.$error.message}}</small>
+					</div>
+				</div>
+
+				<div class="form-group" ng-class="{'has-error' : myForm.description.$invalid}">
+					<label for="description" class="col-sm-3 control-label">Description</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="description" ng-model="typeOfWork.description" name="description"
+								placeholder="Please input description...">
+						</div>
+						<small class="help-block" ng-show="myForm.description.$invalid">{{myForm.description.$error.message}}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="createTypeOfWork()" class="btn btn-raised btn-small btn-primary">Create</button>
+	<button ng-click="cancel()" class="btn btn-raised btn-default">Cancel</button>
+</div>

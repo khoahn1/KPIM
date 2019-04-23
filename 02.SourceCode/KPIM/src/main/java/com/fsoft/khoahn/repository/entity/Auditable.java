@@ -22,19 +22,19 @@ import lombok.Data;
 public abstract class Auditable<U> {
 
 	@CreatedBy
-	@Column(name = "created_by", nullable = false, updatable = false)
+	@Column(name = "created_by", updatable = false)
 	protected U createdBy;
 
-	@Column(name = "created_date", nullable = false, updatable = false)
+	@Column(name = "created_date", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
 	protected Date createdDate;
 
 	@LastModifiedBy
-	@Column(name = "updated_by", nullable = false)
+	@Column(name = "updated_by")
 	protected U updatedBy;
 
-	@Column(name = "updated_date", nullable = false)
+	@Column(name = "updated_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
 	protected Date updatedDate;

@@ -288,7 +288,7 @@ myapp
         };
 
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'dd/MM/yyyy', 'shortDate'];
-        $scope.format = $scope.formats[1];
+        $scope.format = $scope.formats[3];
     })  
 
 

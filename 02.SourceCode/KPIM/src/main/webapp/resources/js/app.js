@@ -7,7 +7,6 @@ var myapp = angular.module('myApp', ['ngResource', 'ngRoute', 'ngMessages', 'swa
 
 myapp.constant('USER_ROLES', {
     all: '*',
-    admin: 'admin',
     userRead: 'user-read',
 	userCreate: 'user-create',
 	userUpdate: 'user-update',

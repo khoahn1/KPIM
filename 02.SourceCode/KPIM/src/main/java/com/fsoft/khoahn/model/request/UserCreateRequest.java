@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fsoft.khoahn.common.annotation.constraints.DateCheck;
 import com.fsoft.khoahn.common.annotation.constraints.EmailCheck;
 import com.fsoft.khoahn.common.annotation.constraints.RequireCheck;
+import com.fsoft.khoahn.model.request.dto.RoleDetailReqDto;
 
 import lombok.Data;
 
@@ -28,5 +29,5 @@ public class UserCreateRequest {
 	private String address;
 	private String phone;
 	@RequireCheck
-	private RoleCreateRequest role;
+	private RoleDetailReqDto role;
 }

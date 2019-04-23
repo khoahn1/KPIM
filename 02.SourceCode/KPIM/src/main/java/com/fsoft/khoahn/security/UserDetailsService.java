@@ -36,7 +36,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 		UserReadResDto userEntity = userService.findByUsername(username);
 		if (userEntity == null) {
 			throw new UsernameNotFoundException("UserEntity " + username + " was not found in the database");
-		} else if (userEntity.getStatus() == null || userEntity.getStatus() != 1) {
+		} else if (userEntity.getStatus() == null || userEntity.getStatus().getId() != 1) {
 			throw new UserNotEnabledException("UserEntity " + username + " was not enabled");
 		}
 

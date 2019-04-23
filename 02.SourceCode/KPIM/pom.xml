@@ -9,11 +9,11 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.fsoft.khoahn</groupId>
-	<artifactId>cms-project</artifactId>
+	<artifactId>KPIM</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>cms-project</name>
-	<description>cms-project</description>
+	<name>KPIM</name>
+	<description>KPIM</description>
 
 	<properties>
 		<java.version>1.8</java.version>

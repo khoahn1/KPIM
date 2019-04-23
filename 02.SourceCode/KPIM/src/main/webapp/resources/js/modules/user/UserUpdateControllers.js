@@ -85,7 +85,7 @@ myapp.controller('UserUpdateController', function ($rootScope, $scope, $state, S
 			email : $scope.user.email,
 			language : $scope.user.language,
 			avatar : $scope.user.avatar,
-			birthday : !isNullOrEmpty($scope.user.birthday) ? moment($scope.user.birthday).format('YYYY/MM/DD') : angular.element('#birthday').val(),
+			birthday : !isNullOrEmpty($scope.user.birthday) ? moment($scope.user.birthday, 'DD/MM/YYYY').format('DD/MM/YYYY') : angular.element('#birthday').val(),
 			status : $scope.user.status,
 			gender : $scope.user.gender,
 			maritalStatus : $scope.user.maritalStatus,

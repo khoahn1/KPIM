@@ -156,7 +156,7 @@ public class UserController {
 			return new ResponseEntity<>(Collections.singletonList(saveErrorMessage), HttpStatus.CONFLICT);
 		}
 		userService.save(userCreateReqDto);
-		String saveSuccessMessage = messageSource.getMessage("save.success", new String[] { "user" },
+		String saveSuccessMessage = messageSource.getMessage("create.success", new String[] { "user" },
 				Locale.getDefault());
 		return new ResponseEntity<>(Collections.singletonList(saveSuccessMessage), HttpStatus.OK);
 	}
