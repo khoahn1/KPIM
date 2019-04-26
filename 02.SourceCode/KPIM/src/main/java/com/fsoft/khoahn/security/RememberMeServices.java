@@ -26,9 +26,9 @@ import org.springframework.security.web.authentication.rememberme.RememberMeAuth
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fsoft.khoahn.model.request.dto.TokenCreateReqDto;
-import com.fsoft.khoahn.model.response.dto.TokenDetailResDto;
-import com.fsoft.khoahn.model.response.dto.UserReadResDto;
+import com.fsoft.khoahn.dto.req.TokenCreateReqDto;
+import com.fsoft.khoahn.dto.res.TokenDetailResDto;
+import com.fsoft.khoahn.dto.res.UserReadResDto;
 import com.fsoft.khoahn.service.TokenService;
 import com.fsoft.khoahn.service.UserService;
 

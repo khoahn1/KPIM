@@ -19,7 +19,13 @@ myapp.controller('UserReadController', function($rootScope, $scope, $state, Sess
         },
         userDeleteRequests: []
     }
-
+    
+    $scope.rolesOptions = {
+		dataSource: $localStorage.roles,
+        dataTextField: "roleName",
+        dataValueField: "id"
+    };    
+    
     $scope.userReadRequest = {};
     $scope.userAuthorityUpdateResquest = {};
     $scope.privileges = {};
@@ -116,6 +122,7 @@ myapp.controller('UserReadController', function($rootScope, $scope, $state, Sess
         field: "language",
         title: "Language",
         hidden: true,
+        template: '<span>#= language != null ? language.languageName : "" #</span>',
         width: 150
     }, {
         field: "password",
@@ -136,11 +143,13 @@ myapp.controller('UserReadController', function($rootScope, $scope, $state, Sess
         field: "gender",
         title: "Gender",
         hidden: true,
+        template: '<span>#= gender != null ? gender.genderName : "" #</span>',
         width: 150
     }, {
         field: "maritalStatus",
         title: "Marital Status",
         hidden: true,
+        template: '<span>#= maritalStatus != null ? maritalStatus.maritalStatusName : "" #</span>',
         width: 150
     }, {
         field: "role.roleName",
@@ -308,6 +317,38 @@ myapp.controller('UserReadController', function($rootScope, $scope, $state, Sess
             var dataUrl = response.data.fileDownloadUri;
             var dataFileName = response.data.fileName;
             var recordExport = $rootScope.allImportExportTask.find(x => x.id === "Users_DataExport_Excel_" + id_);
+            recordExport.readyDownload = true;
+            recordExport.url = dataUrl;
+            recordExport.fileName = dataFileName;
+            recordExport.status = "Completed";
+            var importExportBoard = {
+                allImportExportTask: $rootScope.allImportExportTask,
+                showImportExportBoard: $rootScope.showImportExportBoard,
+                isMinImportExportBoard: $rootScope.isMinImportExportBoard
+            }
+            $localStorage.importExportBoard = importExportBoard;
+        })
+    }
+
+    // callback for ng-click 'exportUser':
+    $scope.exportPdf = function() {
+
+        $rootScope.showImportExportBoard = true;
+        $rootScope.isMinImportExportBoard = false;
+        var id_ = allImportExportTaskSize++;
+        $rootScope.allImportExportTask.push({
+        	indexTask: id_,
+            id: "Users_DataExport_Pdf_" + id_,
+            isExport: true,
+            url: null,
+            readyDownload: false,
+            status: "Processing",
+            fileName: "File is downloading ..."
+        });
+        UserReadService.exportPdfData().then(function success(response) {
+            var dataUrl = response.data.fileDownloadUri;
+            var dataFileName = response.data.fileName;
+            var recordExport = $rootScope.allImportExportTask.find(x => x.id === "Users_DataExport_Pdf_" + id_);
             recordExport.readyDownload = true;
             recordExport.url = dataUrl;
             recordExport.fileName = dataFileName;

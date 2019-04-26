@@ -26,19 +26,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fsoft.khoahn.common.exception.InvalidFileException;
+import com.fsoft.khoahn.dto.req.TypeOfWorkCreateReqDto;
+import com.fsoft.khoahn.dto.req.TypeOfWorkDeleteReqDto;
+import com.fsoft.khoahn.dto.req.TypeOfWorkReadReqDto;
+import com.fsoft.khoahn.dto.req.TypeOfWorkUpdateReqDto;
+import com.fsoft.khoahn.dto.res.TypeOfWorkDetailResDto;
 import com.fsoft.khoahn.model.request.PaginationRequest;
 import com.fsoft.khoahn.model.request.TypeOfWorkCreateRequest;
 import com.fsoft.khoahn.model.request.TypeOfWorkDeleteRequest;
 import com.fsoft.khoahn.model.request.TypeOfWorkReadRequest;
 import com.fsoft.khoahn.model.request.TypeOfWorkUpdateRequest;
-import com.fsoft.khoahn.model.request.dto.TypeOfWorkCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.TypeOfWorkDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.TypeOfWorkReadReqDto;
-import com.fsoft.khoahn.model.request.dto.TypeOfWorkUpdateReqDto;
 import com.fsoft.khoahn.model.response.TypeOfWorkDetailResponse;
 import com.fsoft.khoahn.model.response.TypeOfWorkReadResponse;
 import com.fsoft.khoahn.model.response.TypeOfWorkUpdateResponse;
-import com.fsoft.khoahn.model.response.dto.TypeOfWorkDetailResDto;
 import com.fsoft.khoahn.service.TypeOfWorkService;
 
 import io.swagger.annotations.Api;

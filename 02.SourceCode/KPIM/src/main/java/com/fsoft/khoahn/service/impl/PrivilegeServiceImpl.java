@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fsoft.khoahn.model.response.dto.AuthorityDetailResDto;
+import com.fsoft.khoahn.dto.res.AuthorityDetailResDto;
 import com.fsoft.khoahn.repository.PrivilegeRepo;
 import com.fsoft.khoahn.repository.entity.FunctionEntity;
 import com.fsoft.khoahn.repository.entity.OperationEntity;
@@ -32,25 +32,25 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 			privilege.setId(privilegeReadResDto.getId());
 			privilege.setText(privilegeReadResDto.getPrivilegeName());
 			if (!privilegeReadResDto.getFunctions().isEmpty()) {
-				List<FunctionEntity> functionReadResDtos = privilegeReadResDto.getFunctions();
+				List<FunctionEntity> functionDetailResDtos = privilegeReadResDto.getFunctions();
 				List<AuthorityDetailResDto> functions = new ArrayList<>();
-				for (Iterator<FunctionEntity> functionDto = functionReadResDtos.iterator(); functionDto
+				for (Iterator<FunctionEntity> functionDto = functionDetailResDtos.iterator(); functionDto
 						.hasNext();) {
-					FunctionEntity functionReadResDto = functionDto.next();
+					FunctionEntity functionDetailResDto = functionDto.next();
 
 					AuthorityDetailResDto function = new AuthorityDetailResDto();
 
-					function.setId(functionReadResDto.getId());
-					function.setText(functionReadResDto.getFunctionName());
-					if (!functionReadResDto.getOperations().isEmpty()) {
-						List<OperationEntity> operationReadResDtos = functionReadResDto.getOperations();
+					function.setId(functionDetailResDto.getId());
+					function.setText(functionDetailResDto.getFunctionName());
+					if (!functionDetailResDto.getOperations().isEmpty()) {
+						List<OperationEntity> operationDetailResDtos = functionDetailResDto.getOperations();
 						List<AuthorityDetailResDto> operations = new ArrayList<>();
-						for (Iterator<OperationEntity> operationDto = operationReadResDtos
+						for (Iterator<OperationEntity> operationDto = operationDetailResDtos
 								.iterator(); operationDto.hasNext();) {
-							OperationEntity operationReadResDto = operationDto.next();
+							OperationEntity operationDetailResDto = operationDto.next();
 							AuthorityDetailResDto operation = new AuthorityDetailResDto();
-							operation.setId(operationReadResDto.getId());
-							operation.setText(operationReadResDto.getOpsName());
+							operation.setId(operationDetailResDto.getId());
+							operation.setText(operationDetailResDto.getOpsName());
 							operation.setOperation(true);
 							operations.add(operation);
 						}

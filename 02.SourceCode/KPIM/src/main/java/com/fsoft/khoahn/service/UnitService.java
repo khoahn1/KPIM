@@ -2,11 +2,11 @@ package com.fsoft.khoahn.service;
 
 import org.springframework.data.domain.Page;
 
-import com.fsoft.khoahn.model.request.dto.UnitCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.UnitDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.UnitReadReqDto;
-import com.fsoft.khoahn.model.request.dto.UnitUpdateReqDto;
-import com.fsoft.khoahn.model.response.dto.UnitDetailResDto;
+import com.fsoft.khoahn.dto.req.UnitCreateReqDto;
+import com.fsoft.khoahn.dto.req.UnitDeleteReqDto;
+import com.fsoft.khoahn.dto.req.UnitReadReqDto;
+import com.fsoft.khoahn.dto.req.UnitUpdateReqDto;
+import com.fsoft.khoahn.dto.res.UnitDetailResDto;
 
 public interface UnitService {
 

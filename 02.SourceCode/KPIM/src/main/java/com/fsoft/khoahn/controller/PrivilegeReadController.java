@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fsoft.khoahn.dto.res.AuthorityDetailResDto;
 import com.fsoft.khoahn.model.response.AuthorityDetailResponse;
 import com.fsoft.khoahn.model.response.PrivilegeReadResponse;
-import com.fsoft.khoahn.model.response.dto.AuthorityDetailResDto;
 import com.fsoft.khoahn.service.PrivilegeService;
 
 import io.swagger.annotations.Api;

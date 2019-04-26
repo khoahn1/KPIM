@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fsoft.khoahn.model.request.dto.TokenCreateReqDto;
-import com.fsoft.khoahn.model.response.dto.TokenDetailResDto;
+import com.fsoft.khoahn.dto.req.TokenCreateReqDto;
+import com.fsoft.khoahn.dto.res.TokenDetailResDto;
 import com.fsoft.khoahn.repository.TokenRepo;
 import com.fsoft.khoahn.repository.entity.TokenEntity;
 import com.fsoft.khoahn.service.TokenService;

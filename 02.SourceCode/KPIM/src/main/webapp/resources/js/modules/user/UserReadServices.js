@@ -32,4 +32,11 @@ myapp.service('UserReadService',['$http', function ($http) {
     		headers: 'Accept:application/json'
     	});
     }
+    this.exportPdfData = function exportPdfData(){
+    	return $http({
+    		method: 'GET',
+    		url: 'users/user-export/pdf',
+    		headers: 'Accept:application/json'
+    	});
+    }
 }]);

@@ -5,13 +5,13 @@ import java.io.IOException;
 import org.springframework.data.domain.Page;
 
 import com.fsoft.khoahn.common.exception.InvalidFileException;
-import com.fsoft.khoahn.model.request.dto.UserCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.UserDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.UserReadReqDto;
-import com.fsoft.khoahn.model.request.dto.UserUpdateReqDto;
-import com.fsoft.khoahn.model.response.dto.DataExportResDto;
-import com.fsoft.khoahn.model.response.dto.UserDetailResDto;
-import com.fsoft.khoahn.model.response.dto.UserReadResDto;
+import com.fsoft.khoahn.dto.req.UserCreateReqDto;
+import com.fsoft.khoahn.dto.req.UserDeleteReqDto;
+import com.fsoft.khoahn.dto.req.UserReadReqDto;
+import com.fsoft.khoahn.dto.req.UserUpdateReqDto;
+import com.fsoft.khoahn.dto.res.DataExportResDto;
+import com.fsoft.khoahn.dto.res.UserDetailResDto;
+import com.fsoft.khoahn.dto.res.UserReadResDto;
 
 public interface UserService {
 

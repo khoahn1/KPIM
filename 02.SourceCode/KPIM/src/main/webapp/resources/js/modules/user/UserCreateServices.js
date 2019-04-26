@@ -1,13 +1,6 @@
 'use strict';
 
 myapp.service('UserCreateService',['$http', function ($http) {
-    this.show = function show(){
-        return $http({
-    		method: 'GET',
-    		url: 'users/user-create',
-    		headers: 'Accept:application/json'
-    	});
-    },
     this.saveUser = function saveUser(request){
     	return $http({
     		method: 'POST',

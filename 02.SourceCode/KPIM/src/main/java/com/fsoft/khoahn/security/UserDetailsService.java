@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fsoft.khoahn.model.response.dto.UserAuthorityReadResDto;
-import com.fsoft.khoahn.model.response.dto.UserReadResDto;
+import com.fsoft.khoahn.dto.res.UserAuthorityReadResDto;
+import com.fsoft.khoahn.dto.res.UserReadResDto;
 import com.fsoft.khoahn.service.UserService;
 
 /**

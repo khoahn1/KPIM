@@ -65,7 +65,30 @@
 							<small class="help-block" ng-show="myForm.fullName.$invalid">{{myForm.fullName.$error.message}}</small>
 						</div>
 					</div>
-
+					
+					<div class="form-group" ng-class="{'has-error' : myForm.gender.$invalid}">
+						<label for="gender" class="col-sm-3 control-label">Gender</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<select chosen data-placeholder="Select a gender..." class="w-100" id="gender" name="gender"
+									ng-model="user.gender"
+									ng-options="gender.genderName for gender in genders track by gender.id"></select>
+							</div>
+							<small class="help-block" ng-show="myForm.gender.$invalid">{{myForm.gender.$error.message}}</small>
+						</div>
+					</div>
+					
+					<div class="form-group" ng-class="{'has-error' : myForm.maritalStatus.$invalid}">
+						<label for="maritalStatus" class="col-sm-3 control-label">MaritalStatus</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<select chosen data-placeholder="Select a maritalStatus..." class="w-100" id="maritalStatus" name="maritalStatus"
+									ng-model="user.maritalStatus"
+									ng-options="maritalStatus.maritalStatusName for maritalStatus in maritalStatuses track by maritalStatus.id"></select>
+							</div>
+							<small class="help-block" ng-show="myForm.maritalStatus.$invalid">{{myForm.maritalStatus.$error.message}}</small>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group" ng-class="{'has-error' : myForm.phone.$invalid}">
@@ -97,7 +120,7 @@
 								<div class="fg-line" ng-class="{ 'fg-toggled': opened == true }">
 									<input id="birthday" ng-click="open($event, 'opened')" type="text" class="form-control"
 										uib-datepicker-popup="{{format}}" show-weeks="false" is-open="opened" min-date="minDate"
-										datepicker-options="dateOptions" close-text="Close" placeholder="YYYY/MM/DD" ng-model="user.birthday"
+										datepicker-options="dateOptions" close-text="Close" placeholder="DD/MM/YYYY" ng-model="user.birthday"
 										name="birthday" />
 								</div>
 								<span class="input-group-addon last"><i class="zmdi zmdi-calendar ma-icon"></i></span>
@@ -114,6 +137,17 @@
 									placeholder="Please input address">
 							</div>
 							<small class="help-block" ng-show="myForm.address.$invalid">{{myForm.address.$error.message}}</small>
+						</div>
+					</div>
+					<div class="form-group" ng-class="{'has-error' : myForm.language.$invalid}">
+						<label for="language" class="col-sm-3 control-label">Language</label>
+						<div class="col-sm-9">
+							<div class="fg-line">
+								<select chosen data-placeholder="Select a language..." class="w-100" id="language" name="language"
+									ng-model="user.language"
+									ng-options="language.languageName for language in languages track by language.id"></select>
+							</div>
+							<small class="help-block" ng-show="myForm.language.$invalid">{{myForm.language.$error.message}}</small>
 						</div>
 					</div>
 				</div>

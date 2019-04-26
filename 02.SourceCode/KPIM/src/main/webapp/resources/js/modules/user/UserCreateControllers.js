@@ -1,15 +1,12 @@
 'use strict';
 
 myapp.controller('UserCreateController', function ($rootScope, $scope, $state, Session, USER_ROLES, $localStorage, $sessionStorage, $ngConfirm, $location, $routeParams, $log, $uibModalInstance, UserCreateService) {
-	$scope.user = {};
-	$scope.roles = {};
-	$scope.userCreateRequest = {};
     
     $scope.initForm = function (){
-		UserCreateService.show()
-        .then(function success(response) {
-            $scope.roles = response.data.roles;
-        });
+        $scope.roles = $localStorage.roles;
+        $scope.genders = $localStorage.genders;
+    	$scope.languages = $localStorage.languages;
+    	$scope.maritalStatuses = $localStorage.maritalStatuses;
     };
 
     // callback for ng-click 'cancel':

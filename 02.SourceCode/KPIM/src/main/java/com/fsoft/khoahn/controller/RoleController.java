@@ -26,22 +26,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fsoft.khoahn.common.exception.InvalidFileException;
+import com.fsoft.khoahn.dto.req.RoleCreateReqDto;
+import com.fsoft.khoahn.dto.req.RoleDeleteReqDto;
+import com.fsoft.khoahn.dto.req.RoleReadReqDto;
+import com.fsoft.khoahn.dto.req.RoleUpdateReqDto;
+import com.fsoft.khoahn.dto.res.AuthorityDetailResDto;
+import com.fsoft.khoahn.dto.res.RoleDetailResDto;
 import com.fsoft.khoahn.model.request.PaginationRequest;
 import com.fsoft.khoahn.model.request.RoleCreateRequest;
 import com.fsoft.khoahn.model.request.RoleDeleteRequest;
 import com.fsoft.khoahn.model.request.RoleReadRequest;
 import com.fsoft.khoahn.model.request.RoleUpdateRequest;
-import com.fsoft.khoahn.model.request.dto.RoleCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleReadReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleUpdateReqDto;
 import com.fsoft.khoahn.model.response.AuthorityDetailResponse;
 import com.fsoft.khoahn.model.response.RoleCreateResponse;
 import com.fsoft.khoahn.model.response.RoleDetailResponse;
 import com.fsoft.khoahn.model.response.RoleReadResponse;
 import com.fsoft.khoahn.model.response.RoleUpdateResponse;
-import com.fsoft.khoahn.model.response.dto.AuthorityDetailResDto;
-import com.fsoft.khoahn.model.response.dto.RoleDetailResDto;
 import com.fsoft.khoahn.service.RoleService;
 
 import io.swagger.annotations.Api;

@@ -26,19 +26,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fsoft.khoahn.common.exception.InvalidFileException;
+import com.fsoft.khoahn.dto.req.UnitCreateReqDto;
+import com.fsoft.khoahn.dto.req.UnitDeleteReqDto;
+import com.fsoft.khoahn.dto.req.UnitReadReqDto;
+import com.fsoft.khoahn.dto.req.UnitUpdateReqDto;
+import com.fsoft.khoahn.dto.res.UnitDetailResDto;
 import com.fsoft.khoahn.model.request.PaginationRequest;
 import com.fsoft.khoahn.model.request.UnitCreateRequest;
 import com.fsoft.khoahn.model.request.UnitDeleteRequest;
 import com.fsoft.khoahn.model.request.UnitReadRequest;
 import com.fsoft.khoahn.model.request.UnitUpdateRequest;
-import com.fsoft.khoahn.model.request.dto.UnitCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.UnitDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.UnitReadReqDto;
-import com.fsoft.khoahn.model.request.dto.UnitUpdateReqDto;
 import com.fsoft.khoahn.model.response.UnitDetailResponse;
 import com.fsoft.khoahn.model.response.UnitReadResponse;
 import com.fsoft.khoahn.model.response.UnitUpdateResponse;
-import com.fsoft.khoahn.model.response.dto.UnitDetailResDto;
 import com.fsoft.khoahn.service.UnitService;
 
 import io.swagger.annotations.Api;

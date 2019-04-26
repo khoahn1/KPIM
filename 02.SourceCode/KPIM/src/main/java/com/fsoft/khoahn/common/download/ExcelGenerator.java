@@ -21,7 +21,7 @@ import com.fsoft.khoahn.common.Constants;
 import com.fsoft.khoahn.common.annotation.CellBindByName;
 import com.fsoft.khoahn.common.enums.DateTimeFormat;
 import com.fsoft.khoahn.common.utils.DateTimeUtils;
-import com.fsoft.khoahn.model.response.dto.DataExportResDto;
+import com.fsoft.khoahn.dto.res.DataExportResDto;
 
 public class ExcelGenerator {
 

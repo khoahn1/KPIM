@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.fsoft.khoahn.model.request.dto.RoleCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleReadReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleUpdateReqDto;
-import com.fsoft.khoahn.model.response.dto.AuthorityDetailResDto;
-import com.fsoft.khoahn.model.response.dto.RoleDetailResDto;
+import com.fsoft.khoahn.dto.req.RoleCreateReqDto;
+import com.fsoft.khoahn.dto.req.RoleDeleteReqDto;
+import com.fsoft.khoahn.dto.req.RoleReadReqDto;
+import com.fsoft.khoahn.dto.req.RoleUpdateReqDto;
+import com.fsoft.khoahn.dto.res.AuthorityDetailResDto;
+import com.fsoft.khoahn.dto.res.RoleDetailResDto;
 
 public interface RoleService {
 

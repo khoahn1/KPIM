@@ -2,8 +2,8 @@ package com.fsoft.khoahn.service;
 
 import java.util.List;
 
-import com.fsoft.khoahn.model.request.dto.TokenCreateReqDto;
-import com.fsoft.khoahn.model.response.dto.TokenDetailResDto;
+import com.fsoft.khoahn.dto.req.TokenCreateReqDto;
+import com.fsoft.khoahn.dto.res.TokenDetailResDto;
 
 public interface TokenService {
 

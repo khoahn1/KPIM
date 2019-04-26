@@ -2,11 +2,11 @@ package com.fsoft.khoahn.service;
 
 import org.springframework.data.domain.Page;
 
-import com.fsoft.khoahn.model.request.dto.TypeOfWorkCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.TypeOfWorkDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.TypeOfWorkReadReqDto;
-import com.fsoft.khoahn.model.request.dto.TypeOfWorkUpdateReqDto;
-import com.fsoft.khoahn.model.response.dto.TypeOfWorkDetailResDto;
+import com.fsoft.khoahn.dto.req.TypeOfWorkCreateReqDto;
+import com.fsoft.khoahn.dto.req.TypeOfWorkDeleteReqDto;
+import com.fsoft.khoahn.dto.req.TypeOfWorkReadReqDto;
+import com.fsoft.khoahn.dto.req.TypeOfWorkUpdateReqDto;
+import com.fsoft.khoahn.dto.res.TypeOfWorkDetailResDto;
 
 public interface TypeOfWorkService {
 

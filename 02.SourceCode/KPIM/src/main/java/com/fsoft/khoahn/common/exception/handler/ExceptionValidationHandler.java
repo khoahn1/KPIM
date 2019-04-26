@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.fsoft.khoahn.dto.MessageDto;
 import com.fsoft.khoahn.model.MessageType;
-import com.fsoft.khoahn.model.dto.MessageDto;
 
 @ControllerAdvice
 public class ExceptionValidationHandler extends ResponseEntityExceptionHandler {

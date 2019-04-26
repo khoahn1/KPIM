@@ -2,7 +2,7 @@ package com.fsoft.khoahn.service;
 
 import java.util.List;
 
-import com.fsoft.khoahn.model.response.dto.AuthorityDetailResDto;
+import com.fsoft.khoahn.dto.res.AuthorityDetailResDto;
 
 public interface PrivilegeService {
 

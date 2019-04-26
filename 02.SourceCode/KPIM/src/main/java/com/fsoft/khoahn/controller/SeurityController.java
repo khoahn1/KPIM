@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fsoft.khoahn.model.response.dto.TokenDetailResDto;
-import com.fsoft.khoahn.model.response.dto.UserReadResDto;
+import com.fsoft.khoahn.dto.res.MasterDataResDto;
+import com.fsoft.khoahn.dto.res.RoleDetailResDto;
+import com.fsoft.khoahn.dto.res.TokenDetailResDto;
+import com.fsoft.khoahn.dto.res.UserReadResDto;
+import com.fsoft.khoahn.model.response.LoginResponse;
 import com.fsoft.khoahn.security.SecurityUtils;
+import com.fsoft.khoahn.service.MasterService;
+import com.fsoft.khoahn.service.RoleService;
 import com.fsoft.khoahn.service.TokenService;
 import com.fsoft.khoahn.service.UserService;
 
@@ -22,16 +27,26 @@ import io.swagger.annotations.Api;
 public class SeurityController {
 
 	@Autowired
-	private UserService userRepo;
+	private UserService userService;
+	@Autowired
+	private RoleService roleService;
+	@Autowired
+	private MasterService masterService;
 
 	@Autowired
 	private TokenService tokenService;
 
 	@RequestMapping(value = "/security/account", method = RequestMethod.GET)
-	public @ResponseBody UserReadResDto getUserAccount() {
-		UserReadResDto userReadResDto = userRepo.findByUsername(SecurityUtils.getCurrentLogin());
-		userReadResDto.setPassword(null);
-		return userReadResDto;
+	public @ResponseBody LoginResponse getUserAccount() {
+		LoginResponse loginResponse = new LoginResponse();
+		List<RoleDetailResDto> roles = roleService.findAll();
+		UserReadResDto user = userService.findByUsername(SecurityUtils.getCurrentLogin());
+		MasterDataResDto masterDataResDto = masterService.getMasterData();
+		user.setPassword(null);
+		loginResponse.setRoles(roles);
+		loginResponse.setUser(user);
+		loginResponse.setMasterData(masterDataResDto);
+		return loginResponse;
 	}
 
 	@PreAuthorize("hasAuthority('admin')")

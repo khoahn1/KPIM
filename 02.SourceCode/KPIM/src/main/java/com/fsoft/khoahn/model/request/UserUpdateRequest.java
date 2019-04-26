@@ -19,15 +19,15 @@ public class UserUpdateRequest {
 	private String fullName;
 	@EmailCheck
 	private String email;
-	private String language;
+	private LanguageDetailRequest language;
 	private String avatar;
 	@DateCheck(strick = true)
 	private String birthday;
-	private String status;
-	private String gender;
-	private String maritalStatus;
+	private StatusDetailRequest status;
+	private GenderDetailRequest gender;
+	private MaritalStatusDetailRequest maritalStatus;
 	private String address;
 	private String phone;
 	@RequireCheck
-	private RoleUpdateRequest role;
+	private RoleDetailRequest role;
 }

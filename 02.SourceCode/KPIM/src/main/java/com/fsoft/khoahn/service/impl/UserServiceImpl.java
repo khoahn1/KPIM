@@ -21,19 +21,19 @@ import com.fsoft.khoahn.common.download.PdfGenerate;
 import com.fsoft.khoahn.common.exception.InvalidFileException;
 import com.fsoft.khoahn.common.utils.FileUploadUtils;
 import com.fsoft.khoahn.common.utils.PageRequestUtils;
+import com.fsoft.khoahn.dto.req.AuthorityUpdateReqDto;
+import com.fsoft.khoahn.dto.req.PaginationReqDto;
+import com.fsoft.khoahn.dto.req.SortReqDto;
+import com.fsoft.khoahn.dto.req.UserCreateReqDto;
+import com.fsoft.khoahn.dto.req.UserDeleteReqDto;
+import com.fsoft.khoahn.dto.req.UserReadReqDto;
+import com.fsoft.khoahn.dto.req.UserSearchReqDto;
+import com.fsoft.khoahn.dto.req.UserUpdateReqDto;
+import com.fsoft.khoahn.dto.res.AuthorityDetailResDto;
+import com.fsoft.khoahn.dto.res.DataExportResDto;
+import com.fsoft.khoahn.dto.res.UserDetailResDto;
+import com.fsoft.khoahn.dto.res.UserReadResDto;
 import com.fsoft.khoahn.model.UserImportExportContent;
-import com.fsoft.khoahn.model.request.dto.AuthorityUpdateResDto;
-import com.fsoft.khoahn.model.request.dto.PaginationReqDto;
-import com.fsoft.khoahn.model.request.dto.SortReqDto;
-import com.fsoft.khoahn.model.request.dto.UserCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.UserDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.UserReadReqDto;
-import com.fsoft.khoahn.model.request.dto.UserSearchReqDto;
-import com.fsoft.khoahn.model.request.dto.UserUpdateReqDto;
-import com.fsoft.khoahn.model.response.dto.AuthorityDetailResDto;
-import com.fsoft.khoahn.model.response.dto.DataExportResDto;
-import com.fsoft.khoahn.model.response.dto.UserDetailResDto;
-import com.fsoft.khoahn.model.response.dto.UserReadResDto;
 import com.fsoft.khoahn.repository.PrivilegeRepo;
 import com.fsoft.khoahn.repository.RoleRepo;
 import com.fsoft.khoahn.repository.UserAuthorityRepo;
@@ -236,14 +236,14 @@ public class UserServiceImpl implements UserService {
 	public void updateUserAuthority(UserUpdateReqDto userUpdateReqDto) {
 		UserEntity userEntity = modelMapper.map(userUpdateReqDto, UserEntity.class);
 		List<UserAuthorityEntity> authorityEntities = new ArrayList<UserAuthorityEntity>();
-		for (AuthorityUpdateResDto authorityUpdateResDto : userUpdateReqDto.getItems()) {
+		for (AuthorityUpdateReqDto authorityUpdateReqDto : userUpdateReqDto.getItems()) {
 			UserAuthorityEntity userAuthorityEntity = new UserAuthorityEntity();
-			if (authorityUpdateResDto.getUserAuthorityId() != null) {
-				userAuthorityEntity.setId(authorityUpdateResDto.getUserAuthorityId());
+			if (authorityUpdateReqDto.getUserAuthorityId() != null) {
+				userAuthorityEntity.setId(authorityUpdateReqDto.getUserAuthorityId());
 			}
 			userAuthorityEntity.setUserId(userUpdateReqDto.getId());
-			userAuthorityEntity.setOperationId(authorityUpdateResDto.getId());
-			userAuthorityEntity.setAuthority(authorityUpdateResDto.isChecked() ? 1 : 0);
+			userAuthorityEntity.setOperationId(authorityUpdateReqDto.getId());
+			userAuthorityEntity.setAuthority(authorityUpdateReqDto.isChecked() ? 1 : 0);
 			authorityEntities.add(userAuthorityEntity);
 		}
 		userEntity.setAuthorities(authorityEntities);
@@ -262,32 +262,32 @@ public class UserServiceImpl implements UserService {
 
 			List<AuthorityDetailResDto> functions = new ArrayList<>();
 			if (!privilegeReadResDto.getFunctions().isEmpty()) {
-				List<FunctionEntity> functionReadResDtos = privilegeReadResDto.getFunctions();
-				for (Iterator<FunctionEntity> functionDto = functionReadResDtos.iterator(); functionDto.hasNext();) {
-					FunctionEntity functionReadResDto = functionDto.next();
+				List<FunctionEntity> functionDetailResDtos = privilegeReadResDto.getFunctions();
+				for (Iterator<FunctionEntity> functionDto = functionDetailResDtos.iterator(); functionDto.hasNext();) {
+					FunctionEntity functionDetailResDto = functionDto.next();
 
 					AuthorityDetailResDto function = new AuthorityDetailResDto();
-					function.setId(functionReadResDto.getId());
-					function.setText(functionReadResDto.getFunctionName());
+					function.setId(functionDetailResDto.getId());
+					function.setText(functionDetailResDto.getFunctionName());
 
 					List<AuthorityDetailResDto> operations = new ArrayList<>();
-					if (!functionReadResDto.getOperations().isEmpty()) {
-						List<OperationEntity> operationReadResDtos = functionReadResDto.getOperations();
-						for (Iterator<OperationEntity> operationDto = operationReadResDtos.iterator(); operationDto
+					if (!functionDetailResDto.getOperations().isEmpty()) {
+						List<OperationEntity> operationDetailResDtos = functionDetailResDto.getOperations();
+						for (Iterator<OperationEntity> operationDto = operationDetailResDtos.iterator(); operationDto
 								.hasNext();) {
-							OperationEntity operationReadResDto = operationDto.next();
+							OperationEntity operationDetailResDto = operationDto.next();
 							AuthorityDetailResDto operation = new AuthorityDetailResDto();
 							UserAuthorityEntity userAuthority = authorities.stream()
-									.filter(userAuthorityEntity -> operationReadResDto.getId()
+									.filter(userAuthorityEntity -> operationDetailResDto.getId()
 											.equals(userAuthorityEntity.getOperation().getId()))
 									.findAny().orElse(null);
-							operation.setId(operationReadResDto.getId());
+							operation.setId(operationDetailResDto.getId());
 							if (userAuthority != null) {
 								operation.setChecked(userAuthority.getAuthority() == 1 ? true : false);
 								operation.setUserAuthorityId(userAuthority.getId());
 								operation.setUserId(userAuthority.getUser().getId());
 							}
-							operation.setText(operationReadResDto.getOpsName());
+							operation.setText(operationDetailResDto.getOpsName());
 							operation.setOperation(true);
 							operations.add(operation);
 						}

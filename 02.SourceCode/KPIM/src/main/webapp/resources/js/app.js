@@ -7,6 +7,7 @@ var myapp = angular.module('myApp', ['ngResource', 'ngRoute', 'ngMessages', 'swa
 
 myapp.constant('USER_ROLES', {
     all: '*',
+    admin: 'admin',
     userRead: 'user-read',
 	userCreate: 'user-create',
 	userUpdate: 'user-update',
@@ -113,8 +114,12 @@ myapp.run(function($rootScope, $state, $location, $http, AuthSharedService, Sess
         var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "/home");
         var delay = ($location.path() === "/loading" ? 1500 : 0);
         $timeout(function() {
-            Session.create(data);
+            Session.create(data.user);
             $rootScope.account = Session;
+            $localStorage.roles = data.roles;
+            $localStorage.genders = data.masterData.genders;
+            $localStorage.languages = data.masterData.languages;
+            $localStorage.maritalStatuses = data.masterData.maritalStatuses;
             $rootScope.authenticated = true;
             $location.path(nextLocation).replace();
             $rootScope.allImportExportTask = $localStorage.importExportBoard.allImportExportTask;

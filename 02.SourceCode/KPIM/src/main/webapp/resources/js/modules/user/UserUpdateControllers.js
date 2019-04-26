@@ -1,7 +1,6 @@
 'use strict';
 
 myapp.controller('UserUpdateController', function ($rootScope, $scope, $state, Session, USER_ROLES, $localStorage, $sessionStorage, $ngConfirm, $location, $routeParams, $log, $uibModalInstance, UserUpdateService) {
-	$scope.userUpdateRequest = {};
 	
     // callback for ng-click 'cancel':
     $scope.cancel = function () {
@@ -38,13 +37,17 @@ myapp.controller('UserUpdateController', function ($rootScope, $scope, $state, S
 		}
     };
     $scope.initForm = function (){
+    	$scope.roles = $localStorage.roles;
+        $scope.genders = $localStorage.genders;
+    	$scope.languages = $localStorage.languages;
+    	$scope.maritalStatuses = $localStorage.maritalStatuses;
+    	
     	var userUpdateRequest = {
     		id : $localStorage.prevPageData.selectedUser.id
     	};
     	UserUpdateService.show(userUpdateRequest)
         .then(function success(response) {
             $scope.user = response.data.userDetailResponse;
-            $scope.roles = response.data.roles;
         }, function error(response) {
             if (response.status == "404") {
                 $ngConfirm({
@@ -85,7 +88,7 @@ myapp.controller('UserUpdateController', function ($rootScope, $scope, $state, S
 			email : $scope.user.email,
 			language : $scope.user.language,
 			avatar : $scope.user.avatar,
-			birthday : !isNullOrEmpty($scope.user.birthday) ? moment($scope.user.birthday, 'DD/MM/YYYY').format('DD/MM/YYYY') : angular.element('#birthday').val(),
+			birthday : !isNullOrEmpty($scope.user.birthday) ? moment($scope.user.birthday).format('DD/MM/YYYY') : angular.element('#birthday').val(),
 			status : $scope.user.status,
 			gender : $scope.user.gender,
 			maritalStatus : $scope.user.maritalStatus,

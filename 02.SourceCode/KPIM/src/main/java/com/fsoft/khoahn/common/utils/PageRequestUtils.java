@@ -10,8 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 
-import com.fsoft.khoahn.model.request.dto.PaginationReqDto;
-import com.fsoft.khoahn.model.request.dto.SortReqDto;
+import com.fsoft.khoahn.dto.req.PaginationReqDto;
+import com.fsoft.khoahn.dto.req.SortReqDto;
 
 public class PageRequestUtils {
 

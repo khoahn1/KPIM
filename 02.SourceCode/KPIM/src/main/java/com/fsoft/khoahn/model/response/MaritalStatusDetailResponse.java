@@ -11,12 +11,4 @@ public class MaritalStatusDetailResponse {
 
 	private String description;
 
-	protected String createdBy;
-
-	protected String createdDate;
-
-	protected String updatedBy;
-
-	protected String updatedDate;
-
 }

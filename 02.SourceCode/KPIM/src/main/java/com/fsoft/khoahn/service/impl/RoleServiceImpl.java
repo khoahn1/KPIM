@@ -16,17 +16,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fsoft.khoahn.common.utils.PageRequestUtils;
-import com.fsoft.khoahn.model.request.dto.AuthorityCreateResDto;
-import com.fsoft.khoahn.model.request.dto.AuthorityUpdateResDto;
-import com.fsoft.khoahn.model.request.dto.PaginationReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleCreateReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleDeleteReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleReadReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleSearchReqDto;
-import com.fsoft.khoahn.model.request.dto.RoleUpdateReqDto;
-import com.fsoft.khoahn.model.request.dto.SortReqDto;
-import com.fsoft.khoahn.model.response.dto.AuthorityDetailResDto;
-import com.fsoft.khoahn.model.response.dto.RoleDetailResDto;
+import com.fsoft.khoahn.dto.req.AuthorityCreateReqDto;
+import com.fsoft.khoahn.dto.req.AuthorityUpdateReqDto;
+import com.fsoft.khoahn.dto.req.PaginationReqDto;
+import com.fsoft.khoahn.dto.req.RoleCreateReqDto;
+import com.fsoft.khoahn.dto.req.RoleDeleteReqDto;
+import com.fsoft.khoahn.dto.req.RoleReadReqDto;
+import com.fsoft.khoahn.dto.req.RoleSearchReqDto;
+import com.fsoft.khoahn.dto.req.RoleUpdateReqDto;
+import com.fsoft.khoahn.dto.req.SortReqDto;
+import com.fsoft.khoahn.dto.res.AuthorityDetailResDto;
+import com.fsoft.khoahn.dto.res.RoleDetailResDto;
 import com.fsoft.khoahn.repository.PrivilegeRepo;
 import com.fsoft.khoahn.repository.RoleRepo;
 import com.fsoft.khoahn.repository.entity.FunctionEntity;
@@ -107,11 +107,11 @@ public class RoleServiceImpl implements RoleService {
 		roleEntity = roleRepo.save(roleEntity);
 		List<RoleAuthorityEntity> authorities = new ArrayList<RoleAuthorityEntity>();
 		if (roleCreateReqDto.getItems() != null) {
-			for (AuthorityCreateResDto authorityCreateResDto : roleCreateReqDto.getItems()) {
+			for (AuthorityCreateReqDto authorityCreateReqDto : roleCreateReqDto.getItems()) {
 				RoleAuthorityEntity roleAuthorityEntity = new RoleAuthorityEntity();
 				roleAuthorityEntity.setRoleId(roleEntity.getId());
-				roleAuthorityEntity.setOperationId(authorityCreateResDto.getId());
-				roleAuthorityEntity.setAuthority(authorityCreateResDto.isChecked() ? 1 : 0);
+				roleAuthorityEntity.setOperationId(authorityCreateReqDto.getId());
+				roleAuthorityEntity.setAuthority(authorityCreateReqDto.isChecked() ? 1 : 0);
 				authorities.add(roleAuthorityEntity);
 			}
 		}
@@ -124,14 +124,14 @@ public class RoleServiceImpl implements RoleService {
 		RoleEntity roleEntity = modelMapper.map(roleUpdateReqDto, RoleEntity.class);
 		List<RoleAuthorityEntity> authorities = new ArrayList<RoleAuthorityEntity>();
 		if (roleUpdateReqDto.getItems() != null) {
-			for (AuthorityUpdateResDto authorityUpdateResDto : roleUpdateReqDto.getItems()) {
+			for (AuthorityUpdateReqDto authorityUpdateReqDto : roleUpdateReqDto.getItems()) {
 				RoleAuthorityEntity roleAuthorityEntity = new RoleAuthorityEntity();
-				if (authorityUpdateResDto.getRoleAuthorityId() != null) {
-					roleAuthorityEntity.setId(authorityUpdateResDto.getRoleAuthorityId());
+				if (authorityUpdateReqDto.getRoleAuthorityId() != null) {
+					roleAuthorityEntity.setId(authorityUpdateReqDto.getRoleAuthorityId());
 				}
 				roleAuthorityEntity.setRoleId(roleEntity.getId());
-				roleAuthorityEntity.setOperationId(authorityUpdateResDto.getId());
-				roleAuthorityEntity.setAuthority(authorityUpdateResDto.isChecked() ? 1 : 0);
+				roleAuthorityEntity.setOperationId(authorityUpdateReqDto.getId());
+				roleAuthorityEntity.setAuthority(authorityUpdateReqDto.isChecked() ? 1 : 0);
 				authorities.add(roleAuthorityEntity);
 			}
 		}
@@ -157,25 +157,25 @@ public class RoleServiceImpl implements RoleService {
 
 			List<AuthorityDetailResDto> functions = new ArrayList<>();
 			if (!privilegeReadResDto.getFunctions().isEmpty()) {
-				List<FunctionEntity> functionReadResDtos = privilegeReadResDto.getFunctions();
-				for (Iterator<FunctionEntity> functionDto = functionReadResDtos.iterator(); functionDto.hasNext();) {
-					FunctionEntity functionReadResDto = functionDto.next();
+				List<FunctionEntity> functionDetailResDtos = privilegeReadResDto.getFunctions();
+				for (Iterator<FunctionEntity> functionDto = functionDetailResDtos.iterator(); functionDto.hasNext();) {
+					FunctionEntity functionDetailResDto = functionDto.next();
 
 					AuthorityDetailResDto function = new AuthorityDetailResDto();
-					function.setId(functionReadResDto.getId());
-					function.setText(functionReadResDto.getFunctionName());
+					function.setId(functionDetailResDto.getId());
+					function.setText(functionDetailResDto.getFunctionName());
 
 					List<AuthorityDetailResDto> operations = new ArrayList<>();
-					if (!functionReadResDto.getOperations().isEmpty()) {
-						List<OperationEntity> operationReadResDtos = functionReadResDto.getOperations();
-						for (Iterator<OperationEntity> operationDto = operationReadResDtos.iterator(); operationDto
+					if (!functionDetailResDto.getOperations().isEmpty()) {
+						List<OperationEntity> operationDetailResDtos = functionDetailResDto.getOperations();
+						for (Iterator<OperationEntity> operationDto = operationDetailResDtos.iterator(); operationDto
 								.hasNext();) {
-							OperationEntity operationReadResDto = operationDto.next();
+							OperationEntity operationDetailResDto = operationDto.next();
 							AuthorityDetailResDto operation = new AuthorityDetailResDto();
-							operation.setId(operationReadResDto.getId());
+							operation.setId(operationDetailResDto.getId());
 							if (("02").equals(typeEvent)) {
 								RoleAuthorityEntity roleAuthority = authorities.stream()
-										.filter(roleAuthorityEntity -> operationReadResDto.getId()
+										.filter(roleAuthorityEntity -> operationDetailResDto.getId()
 												.equals(roleAuthorityEntity.getOperation().getId()))
 										.findAny().orElse(null);
 								if (roleAuthority != null) {
@@ -184,7 +184,7 @@ public class RoleServiceImpl implements RoleService {
 									operation.setRoleId(roleAuthority.getRole().getId());
 								}
 							}
-							operation.setText(operationReadResDto.getOpsName());
+							operation.setText(operationDetailResDto.getOpsName());
 							operation.setOperation(true);
 							operations.add(operation);
 						}

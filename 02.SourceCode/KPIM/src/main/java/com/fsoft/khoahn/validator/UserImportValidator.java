@@ -11,10 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fsoft.khoahn.common.download.ExcelToObjectMapper;
 import com.fsoft.khoahn.common.support.ValidationSupport;
+import com.fsoft.khoahn.dto.res.UserReadResDto;
 import com.fsoft.khoahn.model.Error;
 import com.fsoft.khoahn.model.UserImportExportContent;
 import com.fsoft.khoahn.model.request.FileUploadRequest;
-import com.fsoft.khoahn.model.response.dto.UserReadResDto;
 import com.fsoft.khoahn.service.UserService;
 
 @Component
