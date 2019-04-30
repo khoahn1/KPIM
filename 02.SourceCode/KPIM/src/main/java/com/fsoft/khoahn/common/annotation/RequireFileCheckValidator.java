@@ -17,10 +17,10 @@ public class RequireFileCheckValidator implements ConstraintValidator<RequireFil
 	}
 
 	@Override
-	public boolean isValid(MultipartFile multipartFile, ConstraintValidatorContext context) {
+	public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
 
 		boolean result = true;
-		if (multipartFile == null || multipartFile.isEmpty()) {
+		if (file == null || file.isEmpty()) {
 			result = false;
 		}
 		return result;

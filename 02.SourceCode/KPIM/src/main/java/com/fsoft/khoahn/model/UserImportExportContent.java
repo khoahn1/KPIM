@@ -15,7 +15,7 @@ public class UserImportExportContent {
 	@CellBindByName(column = "Email")
 	private String email;
 	@CellBindByName(column = "Language")
-	private String language;
+	private String languageId;
 	@CellBindByName(column = "Avatar")
 	private String avatar;
 	@CellBindByName(column = "Password")
@@ -23,11 +23,11 @@ public class UserImportExportContent {
 	@CellBindByName(column = "Birthday")
 	private String birthday;
 	@CellBindByName(column = "Status")
-	private String status;
+	private String statusId;
 	@CellBindByName(column = "Gender")
-	private String gender;
+	private String genderId;
 	@CellBindByName(column = "Marital Status")
-	private String maritalStatus;
+	private String maritalStatusId;
 	@CellBindByName(column = "Address")
 	private String address;
 	@CellBindByName(column = "Phone")

@@ -34,6 +34,12 @@ public class UserEntity extends Auditable<String> {
 	@Column(name = "id", nullable = false)
 	private String id;
 
+	@Column(name = "username")
+	private String username;
+
+	@Column(name = "password")
+	private String password;
+
 	@Column(name = "address")
 	private String address;
 
@@ -46,10 +52,6 @@ public class UserEntity extends Auditable<String> {
 	@Column(name = "full_name")
 	private String fullName;
 
-	@ManyToOne
-	@JoinColumn(name = "gender_id", referencedColumnName = "id")
-	private GenderEntity gender;
-
 	@Column(name = "phone")
 	private String phone;
 
@@ -57,26 +59,39 @@ public class UserEntity extends Auditable<String> {
 	private String avatar;
 
 	@ManyToOne
+	@JoinColumn(name = "gender_id", referencedColumnName = "id")
+	private GenderEntity gender;
+
+	@Column(name = "gender_id", insertable = false, updatable = false)
+	private Integer genderId;
+
+	@ManyToOne
 	@JoinColumn(name = "language_id", referencedColumnName = "id")
 	private LanguageEntity language;
+
+	@Column(name = "language_id", insertable = false, updatable = false)
+	private Integer languageId;
 
 	@ManyToOne
 	@JoinColumn(name = "marital_status_id", referencedColumnName = "id")
 	private MaritalStatusEntity maritalStatus;
 
-	@Column(name = "password")
-	private String password;
+	@Column(name = "marital_status_id", insertable = false, updatable = false)
+	private Integer maritalStatusId;
+
+	@ManyToOne
+	@JoinColumn(name = "role_id", referencedColumnName = "id")
+	private RoleEntity role;
+
+	@Column(name = "role_id", insertable = false, updatable = false)
+	private String roleId;
 
 	@ManyToOne
 	@JoinColumn(name = "status_id", referencedColumnName = "id")
 	private StatusEntity status;
 
-	@Column(name = "username")
-	private String username;
-
-	@ManyToOne
-	@JoinColumn(name = "role_id", referencedColumnName = "id")
-	private RoleEntity role;
+	@Column(name = "status_id", insertable = false, updatable = false)
+	private Integer statusId;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<UserAuthorityEntity> authorities = new ArrayList<UserAuthorityEntity>();

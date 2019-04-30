@@ -1,12 +1,14 @@
 package com.fsoft.khoahn.service.impl;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -118,16 +120,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public DataExportResDto exportExcelData() throws Exception {
 		List<UserEntity> userEntitys = userRepo.findAll();
-		List<UserImportExportContent> userImportExportContents = new ArrayList<>();
-		for (Iterator<UserEntity> iterator = userEntitys.iterator(); iterator.hasNext();) {
-			UserEntity userEntity = iterator.next();
-			UserImportExportContent userImportExportContent = modelMapper.map(userEntity, UserImportExportContent.class);
-			if (userEntity.getRole() != null) {
-				userImportExportContent.setRoleId(userEntity.getRole().getId());
-			}
-			userImportExportContents.add(userImportExportContent);
-		}
-
+		Type typeUsers = new TypeToken<List<UserImportExportContent>>() {
+		}.getType();
+		List<UserImportExportContent> userImportExportContents = modelMapper.map(userEntitys, typeUsers);
 		DataExportResDto resDto = ExcelGenerator.map(new UserImportExportContent(), userImportExportContents,
 				"Users_DataExport",
 				Constants.PATH_EXPORT_DATA_USERS);
