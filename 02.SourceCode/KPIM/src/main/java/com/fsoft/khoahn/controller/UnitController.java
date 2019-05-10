@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,7 +30,6 @@ import com.fsoft.khoahn.dto.req.UnitDeleteReqDto;
 import com.fsoft.khoahn.dto.req.UnitReadReqDto;
 import com.fsoft.khoahn.dto.req.UnitUpdateReqDto;
 import com.fsoft.khoahn.dto.res.UnitDetailResDto;
-import com.fsoft.khoahn.model.request.PaginationRequest;
 import com.fsoft.khoahn.model.request.UnitCreateRequest;
 import com.fsoft.khoahn.model.request.UnitDeleteRequest;
 import com.fsoft.khoahn.model.request.UnitReadRequest;
@@ -61,15 +59,13 @@ public class UnitController {
 	public ResponseEntity<?> getAll(@RequestBody UnitReadRequest unitReadRequest) {
 		logger.debug("get unit list");
 		UnitReadResponse response = new UnitReadResponse();
-		PaginationRequest paginationRequest = unitReadRequest.getPaginationRequest();
 		UnitReadReqDto unitReadReqDto = modelMapper.map(unitReadRequest, UnitReadReqDto.class);
 		Page<UnitDetailResDto> unitReadResDtos = unitService.findAll(unitReadReqDto);
 
 		Type typeUnits = new TypeToken<List<UnitDetailResponse>>() {
 		}.getType();
 		List<UnitDetailResponse> unitDetailResponses = modelMapper.map(unitReadResDtos.getContent(), typeUnits);
-		Page<UnitDetailResponse> page = new PageImpl<>(unitDetailResponses,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
+		Page<UnitDetailResponse> page = new PageImpl<>(unitDetailResponses, unitReadResDtos.getPageable(),
 				unitReadResDtos.getTotalElements());
 
 		response.setUnits(page);

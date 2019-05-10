@@ -1,0 +1,74 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include src="'partials/template/header.html'"
+	data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+	<aside id="sidebar" data-ng-include src="'partials/template/sidebar-left.html'"
+		data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+	<aside id="chat" data-ng-include src="'partials/template/chat.html'"
+		data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+
+	<section id="content" class="page-view">
+		<div class="container">
+			<div class="block-header">
+				<h2>Projects list</h2>
+			</div>
+
+			<div class="card">
+				<div class="card-header">
+					<h2>Search Form</h2>
+				</div>
+
+				<div class="card-body card-padding">
+					<form class="row" role="form">
+						<div class="col-sm-3">
+							<div class="form-group fg-float m-b-30">
+								<div class="fg-line">
+									<input type="text" class="input-sm form-control fg-input" ng-model="projectSearchForm.projectCode"> <label
+										class="fg-label">Project Code</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group fg-float m-b-30">
+								<div class="fg-line">
+									<input type="text" class="input-sm form-control fg-input" ng-model="projectSearchForm.projectName"> <label
+										class="fg-label">Project Name</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group text-right">
+								<button ng-click="search()" class="btn bgm-blue waves-effect">
+									<i class="zmdi zmdi-search"></i> Search
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<kendo-grid id="mainGrid" options="mainGridOptions" data-current-skin={{mactrl.currentSkin}}></kendo-grid>
+				</div>
+			</div>
+		</div>
+	</section>
+</section>
+
+<footer id="footer" data-ng-include src="'partials/template/footer.html'"></footer>
+<script type="text/x-kendo-template" id="template-toolbar">
+    <a role="button" class="k-button k-button-icontext" ng-click="createNewProject()">
+         <span class="k-icon k-i-add"></span>Add new
+    </a>
+	<a role="button" class="k-button k-button-icontext" ng-click="importProject()">
+		<span class="k-icon k-i-file-add"></span>Import
+	</a>
+	<a role="button" class="k-button k-button-icontext" id="btnDelete" style="display:none;" ng-click="deleteProjects()">
+		<span class="k-icon k-i-delete"></span>Delete
+	</a>
+	<a role="button" class="k-button k-button-icontext" ng-click="exportExcel('Excel')">
+		<span class="k-icon k-i-file-excel"></span>Export Excel
+	</a>
+</script>

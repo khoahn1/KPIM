@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,7 +30,6 @@ import com.fsoft.khoahn.dto.req.TypeOfWorkDeleteReqDto;
 import com.fsoft.khoahn.dto.req.TypeOfWorkReadReqDto;
 import com.fsoft.khoahn.dto.req.TypeOfWorkUpdateReqDto;
 import com.fsoft.khoahn.dto.res.TypeOfWorkDetailResDto;
-import com.fsoft.khoahn.model.request.PaginationRequest;
 import com.fsoft.khoahn.model.request.TypeOfWorkCreateRequest;
 import com.fsoft.khoahn.model.request.TypeOfWorkDeleteRequest;
 import com.fsoft.khoahn.model.request.TypeOfWorkReadRequest;
@@ -61,7 +59,6 @@ public class TypeOfWorkController {
 	public ResponseEntity<?> getAll(@RequestBody TypeOfWorkReadRequest typeOfWorkReadRequest) {
 		logger.debug("get typeOfWork list");
 		TypeOfWorkReadResponse response = new TypeOfWorkReadResponse();
-		PaginationRequest paginationRequest = typeOfWorkReadRequest.getPaginationRequest();
 		TypeOfWorkReadReqDto typeOfWorkReadReqDto = modelMapper.map(typeOfWorkReadRequest, TypeOfWorkReadReqDto.class);
 		Page<TypeOfWorkDetailResDto> typeOfWorkReadResDtos = typeOfWorkService.findAll(typeOfWorkReadReqDto);
 
@@ -70,7 +67,7 @@ public class TypeOfWorkController {
 		List<TypeOfWorkDetailResponse> typeOfWorkDetailResponses = modelMapper.map(typeOfWorkReadResDtos.getContent(),
 				typeTypeOfWorks);
 		Page<TypeOfWorkDetailResponse> page = new PageImpl<>(typeOfWorkDetailResponses,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
+				typeOfWorkReadResDtos.getPageable(),
 				typeOfWorkReadResDtos.getTotalElements());
 
 		response.setTypeOfWorks(page);

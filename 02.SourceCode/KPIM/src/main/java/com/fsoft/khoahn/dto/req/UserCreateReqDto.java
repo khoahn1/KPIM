@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class UserCreateReqDto {
+    private String id;
 	private MultipartFile avatarFile;
 	private String username;
 	private String fullName;

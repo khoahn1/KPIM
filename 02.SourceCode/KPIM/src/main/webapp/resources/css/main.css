@@ -229,3 +229,47 @@
     margin-right: 25px;
     vertical-align: top;
 }
+
+/** Kendo grid custom css */
+.k-grid td {
+    /* padding: .4em .6em !important; */
+}
+.k-button .k-button-icontext {
+    min-width: 0 !important;
+    padding: 6px !important;
+}
+.k-command-cell {
+    text-align: center;
+}
+
+/** CSS CUSTOM SCROLL BAR */
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrol
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+::-webkit-scrollbar-track-piece {
+    background: #ccc
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.k-grid-content
+{
+   overflow-y: visible;
+}

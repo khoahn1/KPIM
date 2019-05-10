@@ -1,0 +1,102 @@
+<div class="modal-header">
+	<h4 class="modal-title">Update Company</h4>
+</div>
+<div class="modal-body">
+	<form name="myForm" method="POST" novalidate class="form-horizontal">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group" ng-class="{'has-error' : myForm.companyCode.$invalid}">
+					<label for="companyCode" class="col-sm-3 control-label">Company Code</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="companyCode" ng-model="company.companyCode" name="companyCode"
+								placeholder="Please input companyCode...">
+						</div>
+						<small class="help-block" ng-show="myForm.companyCode.$invalid">{{myForm.companyCode.$error.message}}</small>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-class="{'has-error' : myForm.companyName.$invalid}">
+					<label for="companyName" class="col-sm-3 control-label">Company Name</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="companyName" ng-model="company.companyName" name="companyName"
+								placeholder="Please input companyName...">
+						</div>
+						<small class="help-block" ng-show="myForm.companyName.$invalid">{{myForm.companyName.$error.message}}</small>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-class="{'has-error' : myForm.taxCode.$invalid}">
+					<label for="taxCode" class="col-sm-3 control-label">Tax Code</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="taxCode" ng-model="company.taxCode" name="taxCode"
+								placeholder="Please input taxCode">
+						</div>
+						<small class="help-block" ng-show="myForm.taxCode.$invalid">{{myForm.taxCode.$error.message}}</small>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-class="{'has-error' : myForm.address.$invalid}">
+					<label for="address" class="col-sm-3 control-label">Address</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="address" ng-model="company.address" name="address"
+								placeholder="Please input address...">
+						</div>
+						<small class="help-block" ng-show="myForm.address.$invalid">{{myForm.address.$error.message}}</small>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-class="{'has-error' : myForm.province.$invalid}">
+					<label for="province" class="col-sm-3 control-label">Province</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="province" ng-model="company.province" name="province"
+								placeholder="Please input province...">
+						</div>
+						<small class="help-block" ng-show="myForm.province.$invalid">{{myForm.province.$error.message}}</small>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-class="{'has-error' : myForm.district.$invalid}">
+					<label for="district" class="col-sm-3 control-label">District</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="district" ng-model="company.district" name="district"
+								placeholder="Please input district...">
+						</div>
+						<small class="help-block" ng-show="myForm.district.$invalid">{{myForm.district.$error.message}}</small>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-class="{'has-error' : myForm.phone.$invalid}">
+					<label for="phone" class="col-sm-3 control-label">Phone</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="phone" ng-model="company.phone" name="phone"
+								placeholder="Please input phone...">
+						</div>
+						<small class="help-block" ng-show="myForm.phone.$invalid">{{myForm.phone.$error.message}}</small>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-class="{'has-error' : myForm.status.$invalid}">
+					<label for="status" class="col-sm-3 control-label">Status</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="status" ng-model="company.status" name="status"
+								placeholder="Please input status...">
+						</div>
+						<small class="help-block" ng-show="myForm.status.$invalid">{{myForm.status.$error.message}}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="updateCompany()" class="btn btn-raised btn-small btn-primary">Update</button>
+	<button ng-click="cancel()" class="btn btn-raised btn-default">Cancel</button>
+</div>

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class StatusDetailRequest {
 
-	private Integer id;
+	private String id;
 
 	private String statusName;
 

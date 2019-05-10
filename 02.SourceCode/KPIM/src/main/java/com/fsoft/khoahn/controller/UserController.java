@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,7 +40,6 @@ import com.fsoft.khoahn.dto.res.UserDetailResDto;
 import com.fsoft.khoahn.dto.res.UserReadResDto;
 import com.fsoft.khoahn.model.UserImportExportContent;
 import com.fsoft.khoahn.model.request.FileUploadRequest;
-import com.fsoft.khoahn.model.request.PaginationRequest;
 import com.fsoft.khoahn.model.request.UserAuthorityUpdateResquest;
 import com.fsoft.khoahn.model.request.UserCreateRequest;
 import com.fsoft.khoahn.model.request.UserDeleteRequest;
@@ -83,15 +81,13 @@ public class UserController {
 	public ResponseEntity<?> getAll(@RequestBody UserReadRequest userReadRequest) {
 		logger.debug("get users list");
 		UserReadResponse response = new UserReadResponse();
-		PaginationRequest paginationRequest = userReadRequest.getPaginationRequest();
 		UserReadReqDto userReadReqDto = modelMapper.map(userReadRequest, UserReadReqDto.class);
 		Page<UserDetailResDto> userReadResDtos = userService.findAll(userReadReqDto);
 
 		Type typeUsers = new TypeToken<List<UserDetailResponse>>() {
 		}.getType();
 		List<UserDetailResponse> userDetailResponses = modelMapper.map(userReadResDtos.getContent(), typeUsers);
-		Page<UserDetailResponse> page = new PageImpl<>(userDetailResponses,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
+		Page<UserDetailResponse> page = new PageImpl<>(userDetailResponses, userReadResDtos.getPageable(),
 				userReadResDtos.getTotalElements());
 
 		response.setUsers(page);
@@ -186,12 +182,6 @@ public class UserController {
 	@RequestMapping(value = "/user-export/excel", method = RequestMethod.GET)
 	public ResponseEntity<?> exportExcelData() throws Exception {
 		UserExportResponse response = modelMapper.map(userService.exportExcelData(), UserExportResponse.class);
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/user-export/pdf", method = RequestMethod.GET)
-	public ResponseEntity<?> exportPdfData() throws Exception {
-		UserExportResponse response = modelMapper.map(userService.exportPdfData(), UserExportResponse.class);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

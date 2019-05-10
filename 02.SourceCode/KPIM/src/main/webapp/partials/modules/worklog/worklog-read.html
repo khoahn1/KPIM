@@ -1,0 +1,68 @@
+<header 
+    id="header"
+    data-current-skin={{mactrl.currentSkin}}
+    data-ng-include src="'partials/template/header.html'"
+    data-ng-controller="headerCtrl as hctrl">
+</header>
+<section id="main">
+    <aside 
+        id="sidebar" 
+        data-ng-include
+        src="'partials/template/sidebar-left.html'"
+        data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }">
+    </aside>
+    <aside 
+        id="chat"
+        data-ng-include
+        src="'partials/template/chat.html'"
+        data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }">
+    </aside>
+    <section id="content" class="page-view">
+		<div class="container">
+            <div class="block-header">
+                <h2>Worklog list</h2>
+            </div>
+            <div class="card">
+				<div class="card-body">
+                    <kendo-grid 
+                        id="workLogGrid"
+                        options="workLogGridOptions"
+                        data-current-skin={{mactrl.currentSkin}}>
+                    </kendo-grid>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<footer 
+    id="footer"
+    data-ng-include
+    src="'partials/template/footer.html'">
+</footer>
+<script type="text/x-kendo-template" id="template-toolbar">
+    <a role="button" class="k-button k-button-icontext" ng-click="createWorkLog()">
+         <span class="k-icon k-i-add"></span>Add new
+    </a>
+    <a role="button" class="k-button k-button-icontext" id="btnSaveChanges" style="display:none;" ng-click="saveChanges()">
+        <span class="k-icon k-i-save"></span>Save changes
+    </a>
+    <a role="button" class="k-button k-button-icontext" id="btnCancelChanges" style="display:none;" ng-click="cancelChanges()">
+       <span class="k-icon k-i-cancel"></span>Cancel changes
+    </a>
+	<a role="button" class="k-button k-button-icontext" id="btnDelete" style="display:none;" ng-click="deleteWorkLogs()">
+		<span class="k-icon k-i-delete"></span>Delete
+	</a>
+	<a role="button" class="k-button k-button-icontext" ng-click="importWorkLogs()">
+		<span class="k-icon k-i-file-add"></span>Import
+	</a>
+	<a role="button" class="k-button k-button-icontext" ng-click="exportWorkLogs()">
+		<span class="k-icon k-i-file-excel"></span>Export excel
+	</a>
+</script>
+<script type="text/x-kendo-template" id="validationErrors">
+    <div>
+        #for (var i = 0; i < data.length; i++) {#
+            <span class="message">Row #:data[i].index#: #:data[i].message#</span></br>
+        #}#   
+    </div>
+</script>

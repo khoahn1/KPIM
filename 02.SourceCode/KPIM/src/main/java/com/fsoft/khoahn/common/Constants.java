@@ -11,8 +11,13 @@ public final class Constants {
 	public static final String SUPPLIER_KEY = "SU";
 	public static final String PRIVILEGES_KEY = "PR";
 	public static final String FUNCTIONS_KEY = "FU";
-    public static final String OPERATIONS_KEY = "OP";
-    public static final String ROLE_KEY = "RL";
+	public static final String OPERATIONS_KEY = "OP";
+	public static final String ROLE_KEY = "RL";
+	public static final String COMPANY_KEY = "CO";
+	public static final String PROJECT_KEY = "PJ";
+	public static final String DEPARTMENT_KEY = "DP";
+	public static final String PARENT_DEPARTMENT_KEY = "PD";
+	public static final String TASK_KEY = "TS";
 	public static final String BR_KEY = "BR";
 	public static final String PREFIX_PARAM = "prefix";
 	public static final Integer PREFIX_COUNT = 8;
@@ -24,4 +29,5 @@ public final class Constants {
 	public static final String PATH_EXPORT_DATA_SUPPLIERS = "upload/data/suppliers";
 	public static final String CONSTANT_NAME_IMPORT_USERS_DATA = "UserImport";
 	public static final String PATH_DEFAULT_PROFILE_PICS = "resources/img/profile-pics/avatar-default-icon.png";
+	public static final String PATH_EXPORT_DATA_PROJECT = "upload/data/projects";
 }

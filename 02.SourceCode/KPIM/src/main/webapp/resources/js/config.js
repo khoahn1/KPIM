@@ -88,6 +88,118 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
+	}).state('projects.project-create', {
+		url: '/project-create',
+		templateUrl: 'partials/modules/project/project-create.html',
+		controller: 'ProjectCreateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('projects.project-update', {
+		url: '/project-update',
+		templateUrl: 'partials/modules/project/project-update.html',
+		controller: 'ProjectUpdateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('projects.project-import', {
+		url: '/project-import',
+		templateUrl: 'partials/modules/project/project-import.html',
+		controller: 'ProjectImportController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('companies.company-create', {
+		url: '/company-create',
+		templateUrl: 'partials/modules/company/company-create.html',
+		controller: 'CompanyCreateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('companies.company-update', {
+		url: '/company-update',
+		templateUrl: 'partials/modules/company/company-update.html',
+		controller: 'CompanyUpdateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('products.product-create', {
+		url: '/product-create',
+		templateUrl: 'partials/modules/product/product-create.html',
+		controller: 'ProductCreateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('products.product-update', {
+		url: '/product-update',
+		templateUrl: 'partials/modules/product/product-update.html',
+		controller: 'ProductUpdateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('parent-departments.parent-department-create', {
+		url: '/parent-department-create',
+		templateUrl: 'partials/modules/parent-department/parent-department-create.html',
+		controller: 'ParentDepartmentCreateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('parent-departments.parent-department-update', {
+		url: '/parent-department-update',
+		templateUrl: 'partials/modules/parent-department/parent-department-update.html',
+		controller: 'ParentDepartmentUpdateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('departments.department-create', {
+		url: '/department-create',
+		templateUrl: 'partials/modules/department/department-create.html',
+		controller: 'DepartmentCreateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('departments.department-update', {
+		url: '/department-update',
+		templateUrl: 'partials/modules/department/department-update.html',
+		controller: 'DepartmentUpdateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('tasks.task-update', {
+		url: '/task-update',
+		templateUrl: 'partials/modules/task/task-update.html',
+		controller: 'TaskUpdateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('tasks.task-create', {
+		url: '/task-create',
+		templateUrl: 'partials/modules/task/task-create.html',
+		controller: 'TaskCreateController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('tasks.task-import', {
+		url: '/task-import',
+		templateUrl: 'partials/modules/task/task-import.html',
+		controller: 'TaskImportController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
 	});
 	
 	$stateProvider.state("home", {
@@ -146,6 +258,30 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
+	}).state('companies', {
+		url: '/companies',
+		templateUrl: 'partials/modules/company/company-read.html',
+		controller: 'CompanyReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('parent-departments', {
+		url: '/parent-departments',
+		templateUrl: 'partials/modules/parent-department/parent-department-read.html',
+		controller: 'ParentDepartmentReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('departments', {
+		url: '/departments',
+		templateUrl: 'partials/modules/department/department-read.html',
+		controller: 'DepartmentReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
 	}).state('type-of-works', {
 		url: '/type-of-works',
 		templateUrl: 'partials/modules/type-of-work/type-of-work-read.html',
@@ -171,7 +307,54 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 			authorizedRoles: [USER_ROLES.all]
 		}
 	})
-	
+	.state('projects', {
+		url: '/projects',
+		templateUrl: 'partials/views/common-2.html',
+	})
+	.state('projects.project-read', {
+		url: '/project-read',
+		templateUrl: 'partials/modules/project/project-read.html',
+		controller: 'ProjectReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	})
+	.state('projects.project-detail', {
+		url: '/project-detail',
+		templateUrl: 'partials/modules/project/project-detail.html',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	})
+	.state('projects.project-detail.info', {
+		url: '/info',
+		templateUrl: 'partials/modules/project/project-info.html',
+		controller: 'ProjectInfoController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	})
+	.state('projects.project-detail.member', {
+		url: '/members',
+		templateUrl: 'partials/modules/project/project-member.html',
+		controller: 'ProjectMemberController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	})
+	.state('products', {
+		url: '/products',
+		templateUrl: 'partials/modules/product/product-read.html',
+		controller: 'ProductReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	})
 	// ------------------------------
 	// WIDGETS
 	// ------------------------------
@@ -205,6 +388,14 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 		url: '/users',
 		templateUrl: 'partials/modules/user/user-read.html',
 		controller: 'UserReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('tasks', {
+		url: '/tasks',
+		templateUrl: 'partials/modules/task/task-read.html',
+		controller: 'TaskReadController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
@@ -527,5 +718,18 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 	.state('breadcrumb-demo', {
 		url: '/breadcrumb-demo',
 		templateUrl: 'partials/views/breadcrumb-demo.html'
+	})
+
+	// ------------------------------
+	// WORK LOG
+	// ------------------------------
+	.state('worklogs', {
+		url: '/worklogs',
+		templateUrl: 'partials/modules/worklog/worklog-read.html',
+		controller: 'WorkLogReadController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
 	})
 });

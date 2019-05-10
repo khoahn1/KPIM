@@ -5,13 +5,15 @@ import lombok.Data;
 @Data
 public class PhaseDetailResponse {
 
-	private Integer id;
+	private String id;
 
 	private String phaseCode;
 
 	private String phaseName;
 
 	private String description;
+
+	private UnitDetailResponse unit;
 
 	protected String createdBy;
 

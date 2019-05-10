@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 
 import com.fsoft.khoahn.common.utils.StringUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ValidationSupport {
 
 	public static boolean isEmailValid(String email) {
@@ -82,6 +85,16 @@ public class ValidationSupport {
 
 	public static boolean checkAlphaNumbericPunt(final String target) {
 		return StringUtils.isAlphaNumbericPunt(target);
+	}
+
+	public static boolean checkDecimalNumberic(final String target) {
+	    try {
+            Double.parseDouble(target);
+        } catch (NumberFormatException e) {
+            log.error(e.getMessage(), e);
+            return false;
+        }
+        return true;
 	}
 
 }

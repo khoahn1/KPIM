@@ -1,0 +1,46 @@
+<div class="modal-header">
+	<h4 class="modal-title">Create Department</h4>
+</div>
+<div class="modal-body">
+	<form name="myForm" method="POST" novalidate class="form-horizontal">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group" ng-class="{'has-error' : myForm.departmentCode.$invalid}">
+					<label for="departmentCode" class="col-sm-3 control-label">Department code</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="departmentCode" ng-model="department.departmentCode" name="departmentCode"
+								placeholder="Please input departmentCode...">
+						</div>
+						<small class="help-block" ng-show="myForm.departmentCode.$invalid">{{myForm.departmentCode.$error.message}}</small>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{'has-error' : myForm.departmentName.$invalid}">
+					<label for="departmentName" class="col-sm-3 control-label">Department name</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="departmentName" ng-model="department.departmentName" name="departmentName"
+								placeholder="Please input departmentName...">
+						</div>
+						<small class="help-block" ng-show="myForm.departmentName.$invalid">{{myForm.departmentName.$error.message}}</small>
+					</div>
+				</div>
+
+				<div class="form-group" ng-class="{'has-error' : myForm.description.$invalid}">
+					<label for="description" class="col-sm-3 control-label">Description</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="description" ng-model="department.description" name="description"
+								placeholder="Please input description...">
+						</div>
+						<small class="help-block" ng-show="myForm.description.$invalid">{{myForm.description.$error.message}}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="createDepartment()" class="btn btn-raised btn-small btn-primary">Create</button>
+	<button ng-click="cancel()" class="btn btn-raised btn-default">Cancel</button>
+</div>

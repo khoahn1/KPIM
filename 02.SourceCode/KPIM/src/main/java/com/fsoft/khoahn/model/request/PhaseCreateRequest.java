@@ -1,11 +1,14 @@
 package com.fsoft.khoahn.model.request;
 
+import com.fsoft.khoahn.common.annotation.constraints.RequireCheck;
+
 import lombok.Data;
 
 @Data
 public class PhaseCreateRequest {
 
-	private Integer id;
+    @RequireCheck
+	private String id;
 
 	private String phaseCode;
 

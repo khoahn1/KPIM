@@ -1,5 +1,7 @@
 package com.fsoft.khoahn.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.fsoft.khoahn.dto.req.UnitCreateReqDto;
@@ -21,5 +23,7 @@ public interface UnitService {
 	void update(UnitUpdateReqDto unitUpdateReqDto);
 
 	void delete(UnitDeleteReqDto unitDeleteReqDto);
+
+	List<UnitDetailResDto> findAll();
 
 }

@@ -24,10 +24,10 @@ public class PageRequestUtils {
 				Order order = new Order(Direction.fromString(sortReqDto.getOrder()), sortReqDto.getFieldName());
 				orders.add(order);
 			}
-			Sort sort = new Sort(orders);
-			pageable = new PageRequest(paginationReqDto.getPageNumber() - 1, paginationReqDto.getPageSize(), sort);
+			Sort sort = Sort.by(orders);
+			pageable = PageRequest.of(paginationReqDto.getPageNumber() - 1, paginationReqDto.getPageSize(), sort);
 		} else {
-			pageable = new PageRequest(paginationReqDto.getPageNumber() - 1, paginationReqDto.getPageSize());
+			pageable = PageRequest.of(paginationReqDto.getPageNumber() - 1, paginationReqDto.getPageSize());
 		}
 		return pageable;
 	}

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,7 +30,6 @@ import com.fsoft.khoahn.dto.req.PhaseDeleteReqDto;
 import com.fsoft.khoahn.dto.req.PhaseReadReqDto;
 import com.fsoft.khoahn.dto.req.PhaseUpdateReqDto;
 import com.fsoft.khoahn.dto.res.PhaseDetailResDto;
-import com.fsoft.khoahn.model.request.PaginationRequest;
 import com.fsoft.khoahn.model.request.PhaseCreateRequest;
 import com.fsoft.khoahn.model.request.PhaseDeleteRequest;
 import com.fsoft.khoahn.model.request.PhaseReadRequest;
@@ -61,15 +59,13 @@ public class PhaseController {
 	public ResponseEntity<?> getAll(@RequestBody PhaseReadRequest phaseReadRequest) {
 		logger.debug("get phase list");
 		PhaseReadResponse response = new PhaseReadResponse();
-		PaginationRequest paginationRequest = phaseReadRequest.getPaginationRequest();
 		PhaseReadReqDto phaseReadReqDto = modelMapper.map(phaseReadRequest, PhaseReadReqDto.class);
 		Page<PhaseDetailResDto> phaseReadResDtos = phaseService.findAll(phaseReadReqDto);
 
 		Type typePhases = new TypeToken<List<PhaseDetailResponse>>() {
 		}.getType();
 		List<PhaseDetailResponse> phaseDetailResponses = modelMapper.map(phaseReadResDtos.getContent(), typePhases);
-		Page<PhaseDetailResponse> page = new PageImpl<>(phaseDetailResponses,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
+		Page<PhaseDetailResponse> page = new PageImpl<>(phaseDetailResponses, phaseReadResDtos.getPageable(),
 				phaseReadResDtos.getTotalElements());
 
 		response.setPhases(page);

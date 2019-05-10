@@ -3,6 +3,7 @@ package com.fsoft.khoahn.common.exception.handler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,15 +16,22 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.fsoft.khoahn.common.enums.StatusCode;
+import com.fsoft.khoahn.common.utils.StringUtils;
 import com.fsoft.khoahn.dto.MessageDto;
 import com.fsoft.khoahn.model.MessageType;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ControllerAdvice
+@Slf4j
 public class ExceptionValidationHandler extends ResponseEntityExceptionHandler {
 	@Autowired
 	private MessageSource msgSource;
@@ -36,11 +44,20 @@ public class ExceptionValidationHandler extends ResponseEntityExceptionHandler {
 				Locale currentLocale = LocaleContextHolder.getLocale();
 				String msg = msgSource.getMessage(error.getDefaultMessage(), error.getArguments(), currentLocale);
 				message = new MessageDto(MessageType.ERROR, msg, error.getField(), error.getCode());
+				message.setIndex(getIndexError(error.getField()));
 				messages.add(message);
 			}
 		}
 		return messages;
 	}
+
+	@ExceptionHandler(value = MultipartException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+	private ResponseEntity<?> handleMultipartException(MultipartException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+
+    }
 
 	@Override
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -50,7 +67,7 @@ public class ExceptionValidationHandler extends ResponseEntityExceptionHandler {
 		BindingResult result = ex.getBindingResult();
 		return handleExceptionInternal(ex, processFieldErrors(result.getFieldErrors()), headers, status, request);
 	}
-	
+
 	@Override
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
@@ -60,4 +77,27 @@ public class ExceptionValidationHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, processFieldErrors(result.getFieldErrors()), headers, status, request);
 	}
 
+	@ExceptionHandler({Exception.class, RuntimeException.class})
+    protected ResponseEntity<Object> handleInternalError(final Exception exception) {
+        log.error(exception.getMessage(), exception);
+        MessageDto messageDto = new MessageDto();
+        messageDto.setCode(StatusCode.INTERNAL_SERVER_ERROR.getValue());
+        messageDto.setMessage(msgSource.getMessage("system.failure", null, Locale.getDefault()));
+        messageDto.setType(MessageType.ERROR);
+        return new ResponseEntity<>(messageDto, HttpStatus.OK);
+    }
+
+	private int getIndexError(String fieldName) {
+	    if (StringUtils.contains(fieldName, "[") && StringUtils.contains(fieldName, "]")) {
+	        StringTokenizer tokenizer = new StringTokenizer(fieldName, ".");
+	        if (tokenizer.hasMoreTokens()) {
+	            String token = tokenizer.nextToken();
+	            String substring = token.substring(token.indexOf("[") + 1, token.indexOf("]"));
+	            if (StringUtils.isNumberic(substring)) {
+	                return Integer.parseInt(substring);
+	            }
+	        }
+	    }
+	    return 0;
+	}
 }

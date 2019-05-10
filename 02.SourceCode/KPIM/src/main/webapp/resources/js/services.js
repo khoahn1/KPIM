@@ -121,3 +121,66 @@ myapp.service('TokensService', function($log, $resource) {
         }
     }
 });
+
+myapp.service('DialogService', function($ngConfirm) {
+    return {
+        error: function(options) {
+            return new Promise(
+                function(resolve, reject) {
+                    $ngConfirm({
+                        title: options.title ? options.title : 'ERROR',
+                        content: options.content ? options.content : 'An error occurred!',
+                        icon: 'fa fa-exclamation-triangle',
+                        theme: 'modern',
+                        type: 'red',
+                        columnClass: 'large',
+                        buttons: {
+                            ok: {
+                                text: 'OK',
+                                btnClass: 'btn btn-raised btn-danger',
+                                keys: [
+                                    'enter'
+                                ],
+                                action: function() {
+                                    resolve(true);
+                                }
+                            }
+                        }
+                    });
+                }
+            )
+        },
+        confirm: function(options) {
+            return new Promise(
+                function(resolve, reject) {
+                    $ngConfirm({
+                        title: options.title ? options.title : 'Delete',
+                        icon: 'fa fa-exclamation-triangle',
+                        theme: 'modern',
+                        escapeKey: true, // close the modal when escape is pressed.
+                        content: options.content ? options.content : 'Are you sure you want to delete this items?',
+                        type: 'red',
+                        buttons: {
+                            confirm: {
+                                text: 'OK',
+                                btnClass: 'btn btn-raised btn-success',
+                                keys: ['enter'],
+                                action: function() {
+                                    resolve(true);
+                                }
+                            },
+                            cancel: {
+                                text: 'CANCEL',
+                                btnClass: 'btn btn-raised btn-danger',
+                                keys: ['esc'],
+                                action: function() {
+                                    resolve(false);
+                                }
+                            }
+                        }
+                    })
+                }
+            )
+        }
+    }
+});

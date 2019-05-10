@@ -8,7 +8,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,8 +60,7 @@ public class TypeOfWorkServiceImpl implements TypeOfWorkService {
 		List<TypeOfWorkDetailResDto> typeOfWorkDetailResDtos = modelMapper.map(typeOfWorkEntitys.getContent(),
 				typeTypeOfWorks);
 
-		Page<TypeOfWorkDetailResDto> page = new PageImpl<>(typeOfWorkDetailResDtos,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
+		Page<TypeOfWorkDetailResDto> page = new PageImpl<>(typeOfWorkDetailResDtos, pageable,
 				typeOfWorkEntitys.getTotalElements());
 		return page;
 	}
@@ -90,5 +88,10 @@ public class TypeOfWorkServiceImpl implements TypeOfWorkService {
 	public void delete(TypeOfWorkDeleteReqDto typeOfWorkDeleteReqDto) {
 		typeOfWorkRepo.deleteById(typeOfWorkDeleteReqDto.getId());
 	}
+
+    @Override
+    public List<TypeOfWorkDetailResDto> findAll() {
+        return modelMapper.map(typeOfWorkRepo.findAll(), new TypeToken<List<TypeOfWorkDetailResDto>>() {}.getType());
+    }
 
 }

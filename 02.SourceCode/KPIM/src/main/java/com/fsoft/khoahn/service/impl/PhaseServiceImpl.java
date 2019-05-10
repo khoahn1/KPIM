@@ -8,7 +8,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,8 +58,7 @@ public class PhaseServiceImpl implements PhaseService {
 		}.getType();
 		List<PhaseDetailResDto> phaseDetailResDtos = modelMapper.map(phaseEntitys.getContent(), typePhases);
 
-		Page<PhaseDetailResDto> page = new PageImpl<>(phaseDetailResDtos,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
+		Page<PhaseDetailResDto> page = new PageImpl<>(phaseDetailResDtos, pageable,
 				phaseEntitys.getTotalElements());
 		return page;
 	}
@@ -88,5 +86,10 @@ public class PhaseServiceImpl implements PhaseService {
 	public void delete(PhaseDeleteReqDto phaseDeleteReqDto) {
 		phaseRepo.deleteById(phaseDeleteReqDto.getId());
 	}
+
+    @Override
+    public List<PhaseDetailResDto> findAll() {
+        return modelMapper.map(phaseRepo.findAll(), new TypeToken<List<PhaseDetailResDto>>() {}.getType()) ;
+    }
 
 }

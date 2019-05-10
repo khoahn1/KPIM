@@ -10,6 +10,7 @@ public class MessageDto {
 	private String code;
 	private String message;
 	private MessageType type;
+	private Integer index;
 
 	public MessageDto() {
 		super();

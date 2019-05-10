@@ -8,14 +8,12 @@ import org.apache.commons.fileupload.FileUploadBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
-@ControllerAdvice
 public class GlobalExceptionHandler {
 
 	@Autowired
@@ -28,12 +26,12 @@ public class GlobalExceptionHandler {
 		if (ex instanceof MultipartException) {
 			MultipartException mEx = (MultipartException) ex;
 
-			if (ex.getCause() instanceof FileUploadBase.FileSizeLimitExceededException) {
-				FileUploadBase.FileSizeLimitExceededException flEx = (FileUploadBase.FileSizeLimitExceededException) mEx
+			if (ex.getCause() instanceof FileUploadBase.SizeLimitExceededException) {
+				FileUploadBase.SizeLimitExceededException flEx = (FileUploadBase.SizeLimitExceededException) mEx
 						.getCause();
 				float permittedSize = flEx.getPermittedSize() / 1024;
 				String message = messageSource.getMessage("file.maxsize",
-						new Object[] { flEx.getFileName(), permittedSize }, LocaleContextHolder.getLocale());
+						new Object[] { "filename", permittedSize }, LocaleContextHolder.getLocale());
 				flash.put("errors", message);
 			} else {
 				flash.put("errors", "Please contact administrator: " + ex.getMessage());

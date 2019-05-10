@@ -28,31 +28,15 @@ public class FileUploadUtils {
 		}
 		String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
 		String extension = getFileExtension(originalFilename);
-		String fileName = uploadFileName + "." + extension;
+		String stringTimestamp = DateTimeUtils.convertTimestampToString(new Timestamp(System.currentTimeMillis()),
+				DateTimeFormat.SLASH_DDMMYYYY_HHMMSSFF);
+		String fileName = uploadFileName + "_" + stringTimestamp + "." + extension;
 		Path targetLocation = fileStorageLocation.resolve(fileName);
 		Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 		String fileUrl = Constants.PATH_PROFILE_PICS + "/" + fileName;
 		return fileUrl;
 	}
 
-	public static String uploadFileImportData(MultipartFile file, String uploadFileName, String pathFileUpload)
-			throws IOException {
-		Path fileStorageLocation = null;
-		fileStorageLocation = Paths.get(Constants.PATH_FILE_UPLOAD + pathFileUpload).toAbsolutePath().normalize();
-		File uploadRootDir = fileStorageLocation.toFile();
-		if (!uploadRootDir.exists()) {
-			uploadRootDir.mkdirs();
-		}
-		String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
-		String extension = getFileExtension(originalFilename);
-		String stringTimestamp = DateTimeUtils.convertTimestampToString(new Timestamp(System.currentTimeMillis()),
-				DateTimeFormat.SLASH_DDMMYYYY_HHMMSSFF);
-		String fileName = uploadFileName + "_" + stringTimestamp + "." + extension;
-		Path targetLocation = fileStorageLocation.resolve(fileName);
-		Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-		String fileUrl = String.valueOf(targetLocation);
-		return fileUrl;
-	}
 	public static void deleteFileByUrl(String fileUrl) throws IOException {
 		if (!StringUtils.isEmpty(fileUrl) && !fileUrl.equals(Constants.PATH_DEFAULT_PROFILE_PICS)) {
 			Path fileStorageLocation = Paths.get(Constants.PATH_FILE_UPLOAD).toAbsolutePath().normalize();

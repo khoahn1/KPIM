@@ -330,38 +330,6 @@ myapp.controller('UserReadController', function($rootScope, $scope, $state, Sess
         })
     }
 
-    // callback for ng-click 'exportUser':
-    $scope.exportPdf = function() {
-
-        $rootScope.showImportExportBoard = true;
-        $rootScope.isMinImportExportBoard = false;
-        var id_ = allImportExportTaskSize++;
-        $rootScope.allImportExportTask.push({
-        	indexTask: id_,
-            id: "Users_DataExport_Pdf_" + id_,
-            isExport: true,
-            url: null,
-            readyDownload: false,
-            status: "Processing",
-            fileName: "File is downloading ..."
-        });
-        UserReadService.exportPdfData().then(function success(response) {
-            var dataUrl = response.data.fileDownloadUri;
-            var dataFileName = response.data.fileName;
-            var recordExport = $rootScope.allImportExportTask.find(x => x.id === "Users_DataExport_Pdf_" + id_);
-            recordExport.readyDownload = true;
-            recordExport.url = dataUrl;
-            recordExport.fileName = dataFileName;
-            recordExport.status = "Completed";
-            var importExportBoard = {
-                allImportExportTask: $rootScope.allImportExportTask,
-                showImportExportBoard: $rootScope.showImportExportBoard,
-                isMinImportExportBoard: $rootScope.isMinImportExportBoard
-            }
-            $localStorage.importExportBoard = importExportBoard;
-        })
-    }
-
     // callback for ng-click 'deleteUser':
     $scope.deleteUser = function(user) {
     	$scope.userReadRequest.userDeleteRequests = [];

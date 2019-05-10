@@ -1,0 +1,46 @@
+<div class="modal-header">
+	<h4 class="modal-title">Update ParentDepartment</h4>
+</div>
+<div class="modal-body">
+	<form name="myForm" method="POST" novalidate class="form-horizontal">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group" ng-class="{'has-error' : myForm.parentDepartmentCode.$invalid}">
+					<label for="parentDepartmentCode" class="col-sm-3 control-label">ParentDepartment code</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="parentDepartmentCode" ng-model="parentDepartment.parentDepartmentCode" name="parentDepartmentCode"
+								placeholder="Please input parentDepartmentCode...">
+						</div>
+						<small class="help-block" ng-show="myForm.parentDepartmentCode.$invalid">{{myForm.parentDepartmentCode.$error.message}}</small>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{'has-error' : myForm.parentDepartmentName.$invalid}">
+					<label for="parentDepartmentName" class="col-sm-3 control-label">ParentDepartment name</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="parentDepartmentName" ng-model="parentDepartment.parentDepartmentName" name="parentDepartmentName"
+								placeholder="Please input parentDepartmentName...">
+						</div>
+						<small class="help-block" ng-show="myForm.parentDepartmentName.$invalid">{{myForm.parentDepartmentName.$error.message}}</small>
+					</div>
+				</div>
+
+				<div class="form-group" ng-class="{'has-error' : myForm.description.$invalid}">
+					<label for="description" class="col-sm-3 control-label">Description</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="description" ng-model="parentDepartment.description" name="description"
+								placeholder="Please input description...">
+						</div>
+						<small class="help-block" ng-show="myForm.description.$invalid">{{myForm.description.$error.message}}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="updateParentDepartment()" class="btn btn-raised btn-small btn-primary">Update</button>
+	<button ng-click="cancel()" class="btn btn-raised btn-default">Cancel</button>
+</div>

@@ -9,6 +9,13 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="D:/log/application.log"/>
+		<param name="append" value="true" />
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%-5p: %c - %m%n" />
+	    </layout>
+	</appender>
 	
 	
 
@@ -42,6 +49,7 @@
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		<appender-ref ref="file"/>
 	</root>
 	
 </log4j:configuration>

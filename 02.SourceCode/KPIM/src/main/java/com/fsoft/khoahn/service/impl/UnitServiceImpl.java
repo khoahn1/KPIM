@@ -8,7 +8,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,8 +57,7 @@ public class UnitServiceImpl implements UnitService {
 		}.getType();
 		List<UnitDetailResDto> unitDetailResDtos = modelMapper.map(unitEntitys.getContent(), typeUnits);
 
-		Page<UnitDetailResDto> page = new PageImpl<>(unitDetailResDtos,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
+		Page<UnitDetailResDto> page = new PageImpl<>(unitDetailResDtos, pageable,
 				unitEntitys.getTotalElements());
 		return page;
 	}
@@ -87,5 +85,10 @@ public class UnitServiceImpl implements UnitService {
 	public void delete(UnitDeleteReqDto unitDeleteReqDto) {
 		unitRepo.deleteById(unitDeleteReqDto.getId());
 	}
+
+    @Override
+    public List<UnitDetailResDto> findAll() {
+        return modelMapper.map(unitRepo.findAll(), new TypeToken<List<UnitDetailResDto>>() {}.getType()) ;
+    }
 
 }

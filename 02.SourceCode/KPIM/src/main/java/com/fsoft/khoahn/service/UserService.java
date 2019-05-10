@@ -35,6 +35,4 @@ public interface UserService {
 
 	DataExportResDto exportExcelData() throws Exception;
 
-	DataExportResDto exportPdfData() throws Exception;
-
 }

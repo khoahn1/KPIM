@@ -2,7 +2,6 @@ package com.fsoft.khoahn.service.impl;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,14 +11,12 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fsoft.khoahn.common.Constants;
 import com.fsoft.khoahn.common.download.ExcelGenerator;
-import com.fsoft.khoahn.common.download.PdfGenerate;
 import com.fsoft.khoahn.common.exception.InvalidFileException;
 import com.fsoft.khoahn.common.utils.FileUploadUtils;
 import com.fsoft.khoahn.common.utils.PageRequestUtils;
@@ -47,7 +44,6 @@ import com.fsoft.khoahn.repository.entity.RoleAuthorityEntity;
 import com.fsoft.khoahn.repository.entity.RoleEntity;
 import com.fsoft.khoahn.repository.entity.UserAuthorityEntity;
 import com.fsoft.khoahn.repository.entity.UserEntity;
-import com.fsoft.khoahn.security.SecurityUtils;
 import com.fsoft.khoahn.service.UserService;
 
 @Service("userService")
@@ -105,9 +101,7 @@ public class UserServiceImpl implements UserService {
 			userDtoList.add(userDetailResDto);
 		}
 
-		Page<UserDetailResDto> page = new PageImpl<>(userDtoList,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
-				userEntitys.getTotalElements());
+		Page<UserDetailResDto> page = new PageImpl<>(userDtoList, pageable, userEntitys.getTotalElements());
 		return page;
 	}
 
@@ -132,30 +126,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public DataExportResDto exportPdfData() throws Exception {
-		List<UserEntity> userEntitys = userRepo.findAll();
-
-		List<UserImportExportContent> userImportExportContents = new ArrayList<>();
-		for (Iterator<UserEntity> iterator = userEntitys.iterator(); iterator.hasNext();) {
-			UserEntity userEntity = iterator.next();
-			UserImportExportContent userImportExportContent = modelMapper.map(userEntity, UserImportExportContent.class);
-			if (userEntity.getRole() != null) {
-				userImportExportContent.setRoleId(userEntity.getRole().getId());
-			}
-			userImportExportContents.add(userImportExportContent);
-		}
-		
-		DataExportResDto resDto = PdfGenerate.generatePdf(userImportExportContents.get(0),
-				"Users_DataExport",
-				Constants.PATH_EXPORT_DATA_USERS);
-
-		return resDto;
-	}
-
-	@Override
 	public void save(UserCreateReqDto userCreateReqDto) throws InvalidFileException, IOException {
-		String currentLogin = SecurityUtils.getCurrentLogin();
-
 		String fileDownloadUri = null;
 		if (userCreateReqDto.getAvatarFile() == null) {
 			fileDownloadUri = Constants.PATH_DEFAULT_PROFILE_PICS;
@@ -166,9 +137,6 @@ public class UserServiceImpl implements UserService {
 		userCreateReqDto.setAvatar(fileDownloadUri);
 
 		UserEntity userEntity = modelMapper.map(userCreateReqDto, UserEntity.class);
-
-		userEntity.setCreatedBy(currentLogin);
-		userEntity.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		userEntity = userRepo.save(userEntity);
 
 		RoleEntity roleEntity = roleRepo.findById(userCreateReqDto.getRole().getId()).get();
@@ -204,6 +172,7 @@ public class UserServiceImpl implements UserService {
 		if (userUpdateReqDto.getAvatarFile() == null && fileDownloadUri == null) {
 			fileDownloadUri = Constants.PATH_DEFAULT_PROFILE_PICS;
 		} else if (userUpdateReqDto.getAvatarFile() != null) {
+			FileUploadUtils.deleteFileByUrl(userUpdateReqDto.getAvatar());
 			fileDownloadUri = FileUploadUtils.uploadAvatar(userUpdateReqDto.getAvatarFile(),
 					userUpdateReqDto.getUsername(), Constants.PATH_PROFILE_PICS);
 		}

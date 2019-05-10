@@ -18,7 +18,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.CookieTheftException;
 import org.springframework.security.web.authentication.rememberme.InvalidCookieException;
@@ -187,13 +186,13 @@ public class RememberMeServices extends
     private String generateSeriesData() {
         byte[] newSeries = new byte[DEFAULT_SERIES_LENGTH];
         random.nextBytes(newSeries);
-        return new String(Base64.encode(newSeries));
+		return new String(newSeries);
     }
 
     private String generateTokenData() {
         byte[] newToken = new byte[DEFAULT_TOKEN_LENGTH];
         random.nextBytes(newToken);
-        return new String(Base64.encode(newToken));
+		return new String(newToken);
     }
 
 	private void addCookie(TokenCreateReqDto tokenCreateReqDto, HttpServletRequest request,

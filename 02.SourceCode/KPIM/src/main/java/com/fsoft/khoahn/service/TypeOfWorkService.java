@@ -1,5 +1,7 @@
 package com.fsoft.khoahn.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.fsoft.khoahn.dto.req.TypeOfWorkCreateReqDto;
@@ -21,5 +23,7 @@ public interface TypeOfWorkService {
 	void update(TypeOfWorkUpdateReqDto typeOfWorkUpdateReqDto);
 
 	void delete(TypeOfWorkDeleteReqDto typeOfWorkDeleteReqDto);
+
+	List<TypeOfWorkDetailResDto> findAll();
 
 }

@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Data
 public class UserCreateRequest {
+    private String id;
 	private MultipartFile avatarFile;
 	@RequireCheck
 	private String username;

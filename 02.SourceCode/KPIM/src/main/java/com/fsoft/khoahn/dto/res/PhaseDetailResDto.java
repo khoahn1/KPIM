@@ -13,6 +13,8 @@ public class PhaseDetailResDto {
 
 	private String description;
 
+	private UnitDetailResDto unit;
+
 	protected String createdBy;
 
 	protected String createdDate;

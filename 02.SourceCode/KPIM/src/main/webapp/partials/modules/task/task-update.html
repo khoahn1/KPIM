@@ -1,0 +1,46 @@
+<div class="modal-header">
+	<h4 class="modal-title">Update Task</h4>
+</div>
+<div class="modal-body">
+	<form name="myForm" method="POST" novalidate class="form-horizontal">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group" ng-class="{'has-error' : myForm.taskCode.$invalid}">
+					<label for="taskCode" class="col-sm-3 control-label">Task code</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="taskCode" ng-model="task.taskCode" name="taskCode"
+								placeholder="Please input taskCode...">
+						</div>
+						<small class="help-block" ng-show="myForm.taskCode.$invalid">{{myForm.taskCode.$error.message}}</small>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{'has-error' : myForm.taskName.$invalid}">
+					<label for="taskName" class="col-sm-3 control-label">Task name</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="taskName" ng-model="task.taskName" name="taskName"
+								placeholder="Please input taskName...">
+						</div>
+						<small class="help-block" ng-show="myForm.taskName.$invalid">{{myForm.taskName.$error.message}}</small>
+					</div>
+				</div>
+
+				<div class="form-group" ng-class="{'has-error' : myForm.description.$invalid}">
+					<label for="description" class="col-sm-3 control-label">Description</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<input type="text" class="form-control" id="description" ng-model="task.description" name="description"
+								placeholder="Please input description...">
+						</div>
+						<small class="help-block" ng-show="myForm.description.$invalid">{{myForm.description.$error.message}}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button ng-click="updateTask()" class="btn btn-raised btn-small btn-primary">Update</button>
+	<button ng-click="cancel()" class="btn btn-raised btn-default">Cancel</button>
+</div>

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +31,6 @@ import com.fsoft.khoahn.dto.req.RoleReadReqDto;
 import com.fsoft.khoahn.dto.req.RoleUpdateReqDto;
 import com.fsoft.khoahn.dto.res.AuthorityDetailResDto;
 import com.fsoft.khoahn.dto.res.RoleDetailResDto;
-import com.fsoft.khoahn.model.request.PaginationRequest;
 import com.fsoft.khoahn.model.request.RoleCreateRequest;
 import com.fsoft.khoahn.model.request.RoleDeleteRequest;
 import com.fsoft.khoahn.model.request.RoleReadRequest;
@@ -64,15 +62,13 @@ public class RoleController {
 	public ResponseEntity<?> getAll(@RequestBody RoleReadRequest roleReadRequest) {
 		logger.debug("get roles list");
 		RoleReadResponse response = new RoleReadResponse();
-		PaginationRequest paginationRequest = roleReadRequest.getPaginationRequest();
 		RoleReadReqDto roleReadReqDto = modelMapper.map(roleReadRequest, RoleReadReqDto.class);
 		Page<RoleDetailResDto> roleReadResDtos = roleService.findAll(roleReadReqDto);
 
 		Type typeRoles = new TypeToken<List<RoleDetailResponse>>() {
 		}.getType();
 		List<RoleDetailResponse> roleDetailResponses = modelMapper.map(roleReadResDtos.getContent(), typeRoles);
-		Page<RoleDetailResponse> page = new PageImpl<>(roleDetailResponses,
-				new PageRequest(paginationRequest.getPageNumber(), paginationRequest.getPageSize()),
+		Page<RoleDetailResponse> page = new PageImpl<>(roleDetailResponses, roleReadResDtos.getPageable(),
 				roleReadResDtos.getTotalElements());
 
 		response.setRoles(page);

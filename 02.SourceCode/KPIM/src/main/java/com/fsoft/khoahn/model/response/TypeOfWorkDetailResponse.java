@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class TypeOfWorkDetailResponse {
 
-	private Integer id;
+	private String id;
 
 	private String typeName;
 

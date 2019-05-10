@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class UnitDetailResponse {
 
-	private Integer id;
+	private String id;
 
 	private String unitName;
 

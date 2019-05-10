@@ -1,5 +1,7 @@
 package com.fsoft.khoahn.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.fsoft.khoahn.dto.req.PhaseCreateReqDto;
@@ -21,5 +23,7 @@ public interface PhaseService {
 	void update(PhaseUpdateReqDto phaseUpdateReqDto);
 
 	void delete(PhaseDeleteReqDto phaseDeleteReqDto);
+
+    List<PhaseDetailResDto> findAll();
 
 }
