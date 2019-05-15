@@ -62,7 +62,12 @@
 <script type="text/x-kendo-template" id="validationErrors">
     <div>
         #for (var i = 0; i < data.length; i++) {#
-            <span class="message">Row #:data[i].index#: #:data[i].message#</span></br>
+            Row #:i#
+            <ul>
+            #for (var j = 0; j < data[i].length; j++) {#
+                <li><span class="message">#:data[i][j]#</span></li>
+            #}#
+            </ul>
         #}#   
     </div>
 </script>

@@ -110,13 +110,13 @@ myapp.controller('ProjectReadController', function($rootScope, $scope, $state, S
         hidden: false,
         width: 150
     }, {
-        field: "status",
-        title: "Status",
-        hidden: false,
-        width: 150
-    } ,{
         field: "department.departmentName",
         title: "Department",
+        hidden: false,
+        width: 150
+    }, {
+        field: "status",
+        title: "Status",
         hidden: false,
         width: 150
     }, {
@@ -143,7 +143,7 @@ myapp.controller('ProjectReadController', function($rootScope, $scope, $state, S
         title: "Action",
         hidden: false,
         width: 250,
-        template: '<a ng-click="viewProject(dataItem)" class="btn btn-icon-text waves-effect btn-primary"><i class="zmdi zmdi-info"></i>View</a>'
+        template: '<a ng-click="viewProject(dataItem)" class="btn btn-icon-text waves-effect btn-primary"><i class="zmdi zmdi-info-outline"></i>View</a>'
     }];
 	
 	$scope.mainGridOptions = {
@@ -227,7 +227,7 @@ myapp.controller('ProjectReadController', function($rootScope, $scope, $state, S
                 stateName: $scope.initData.stateName
             }
             $localStorage.prevPageData = storageData;
-            $state.go('projects.project-detail');
+            $state.go('projects.project-detail.info');
         } else {
             $ngConfirm({
                 title: 'ERROR',

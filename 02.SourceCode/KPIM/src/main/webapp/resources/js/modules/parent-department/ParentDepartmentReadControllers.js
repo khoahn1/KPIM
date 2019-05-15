@@ -51,7 +51,7 @@ myapp.controller('ParentDepartmentReadController', function($rootScope, $scope, 
 				} else {
 					$scope.parentDepartmentReadRequest.sortRequests = angular.copy($scope.initData.sortRequests);
 				}
-				ParentDepartmentReadService.getAll($scope.parentDepartmentReadRequest).then(function success(response) {
+				ParentDepartmentReadService.findAll($scope.parentDepartmentReadRequest).then(function success(response) {
 					options.success(response.data.parentDepartments);
 				});
 			}
@@ -90,6 +90,11 @@ myapp.controller('ParentDepartmentReadController', function($rootScope, $scope, 
     }, {
     	field: "description",
     	title: "Description",
+    	hidden: false,
+    	width: 200
+    }, {
+    	field: "company.companyName",
+    	title: "Company",
     	hidden: false,
     	width: 200
     }, {

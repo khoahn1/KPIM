@@ -10,4 +10,12 @@ myapp.service('ParentDepartmentCreateService',['$http', function ($http) {
     		headers: 'Accept:application/json'
     	});
     }
+    
+    this.show = function show(){
+    	return $http({
+    		method: 'GET',
+    		url: 'parent-departments/parent-department-create',
+    		headers: 'Accept:application/json'
+    	});
+    }
 }]);

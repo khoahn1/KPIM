@@ -9,5 +9,9 @@ public class ParentDepartmentCreateRequest {
 
 	private String parentDepartmentName;
 
+	private String description;
+
 	private String status;
+	
+	private CompanyDetailReqDto company;
 }

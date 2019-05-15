@@ -1,7 +1,7 @@
 'use strict';
 
 myapp.controller('ParentDepartmentUpdateController', function($rootScope, $scope, $state, Session, USER_ROLES, $localStorage,
-				$sessionStorage, $ngConfirm, $routeParams, $log, $uibModalInstance, ngTableParams, ParentDepartmentUpdateService) {
+				$sessionStorage, $ngConfirm, $routeParams, $log, $uibModalInstance, ngTableParams, ParentDepartmentUpdateService, CompanyReadService) {
 	
 	$scope.parentDepartmentAuthorityUpdateResquest = {};
 	
@@ -9,8 +9,13 @@ myapp.controller('ParentDepartmentUpdateController', function($rootScope, $scope
 		var parentDepartmentUpdateRequest = {
     		id : $localStorage.prevPageData.selectedParentDepartment.id
     	};
+		
+		CompanyReadService.getAll().then(function success(response) {
+            $scope.companies = response.data;
+        });
+		
 		ParentDepartmentUpdateService.init(parentDepartmentUpdateRequest).then(function success(response) {
-			$scope.parentDepartment = response.data.parentDepartment;
+			$scope.parentDepartment = response.data;
 		});
 	};
 	
@@ -19,6 +24,7 @@ myapp.controller('ParentDepartmentUpdateController', function($rootScope, $scope
         
         ParentDepartmentUpdateService.update($scope.parentDepartment)
             .then(function success(response) {
+            	$scope.companies = response.data.companies;
             	$uibModalInstance.close();
             	$rootScope.$broadcast("reload-parentDepartment", { title: "Update ParentDepartment", message: response.data, notificationType: "success" });
             }, function error(response) {

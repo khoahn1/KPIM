@@ -1,7 +1,7 @@
 'use strict';
 
 myapp.controller('DepartmentUpdateController', function($rootScope, $scope, $state, Session, USER_ROLES, $localStorage,
-				$sessionStorage, $ngConfirm, $routeParams, $log, $uibModalInstance, ngTableParams, DepartmentUpdateService) {
+				$sessionStorage, $ngConfirm, $routeParams, $log, $uibModalInstance, ngTableParams, DepartmentUpdateService, ParentDepartmentReadService) {
 	
 	$scope.departmentAuthorityUpdateResquest = {};
 	
@@ -9,6 +9,9 @@ myapp.controller('DepartmentUpdateController', function($rootScope, $scope, $sta
 		var departmentUpdateRequest = {
     		id : $localStorage.prevPageData.selectedDepartment.id
     	};
+		ParentDepartmentReadService.getAll().then(function success(response) {
+            $scope.parentDepartments = response.data;
+        });
 		DepartmentUpdateService.init(departmentUpdateRequest).then(function success(response) {
 			$scope.department = response.data.department;
 		});

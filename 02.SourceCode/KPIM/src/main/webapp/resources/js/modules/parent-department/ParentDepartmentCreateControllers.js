@@ -1,9 +1,12 @@
 'use strict';
 
 myapp.controller('ParentDepartmentCreateController', function($rootScope, $scope, $state, Session, USER_ROLES, $localStorage,
-				$sessionStorage, $ngConfirm, $routeParams, $log, $uibModalInstance, ngTableParams, ParentDepartmentCreateService) {
+				$sessionStorage, $ngConfirm, $routeParams, $log, $uibModalInstance, ngTableParams, ParentDepartmentCreateService, CompanyReadService) {
 	
 	$scope.parentDepartmentAuthorityCreateResquest = {};
+	$scope.companies = {};
+	$scope.parentDepartment ={};
+	$scope.parentDepartmentCreateRequest = {};
 	
 	$scope.initForm = function() {
 	};
@@ -11,7 +14,14 @@ myapp.controller('ParentDepartmentCreateController', function($rootScope, $scope
     $scope.createParentDepartment = function () {
         $scope.resetInvalidForm($scope.myForm);
         
-        ParentDepartmentCreateService.create($scope.parentDepartment)
+        $scope.parentDepartmentCreateRequest = {
+        		parentDepartmentCode : $scope.parentDepartment.parentDepartmentCode,
+        		parentDepartmentName : $scope.parentDepartment.parentDepartmentCode,
+        		status :$scope.parentDepartment.status,
+        		company : $scope.parentDepartment.company
+        	}
+        
+        ParentDepartmentCreateService.create($scope.parentDepartmentCreateRequest)
             .then(function success(response) {
             	$uibModalInstance.close();
             	$rootScope.$broadcast("reload-parentDepartment", { title: "Create ParentDepartment", message: response.data, notificationType: "success" });
@@ -89,6 +99,12 @@ myapp.controller('ParentDepartmentCreateController', function($rootScope, $scope
 			;
 		});
 	};
+	
+	$scope.initForm = function() {
+		CompanyReadService.getAll().then(function success(response) {
+            $scope.companies = response.data;
+        });
+	}
 
 	$scope.init = function() {
 		$scope.initForm();

@@ -55,8 +55,18 @@ public class DepartmentController {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@RequestMapping(value = "/department-read", method = RequestMethod.GET)
+	public ResponseEntity<?> getAll() {
+		List<DepartmentDetailResDto> departmentDetailResDtos = departmentService.getAll();
+		Type typeDepartments = new TypeToken<List<DepartmentDetailResponse>>() {
+		}.getType();
+		List<DepartmentDetailResponse> departmentDetailResponses = modelMapper.map(departmentDetailResDtos,
+				typeDepartments);
+		return new ResponseEntity<>(departmentDetailResponses, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/department-read", method = RequestMethod.POST)
-	public ResponseEntity<?> getAll(@RequestBody DepartmentReadRequest departmentReadRequest) {
+	public ResponseEntity<?> search(@RequestBody DepartmentReadRequest departmentReadRequest) {
 		logger.debug("get department list");
 		DepartmentReadResponse response = new DepartmentReadResponse();
 		DepartmentReadReqDto departmentReadReqDto = modelMapper.map(departmentReadRequest, DepartmentReadReqDto.class);

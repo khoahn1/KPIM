@@ -11,6 +11,8 @@ public class ParentDepartmentDetailResponse {
 	
 	private String parentDepartmentName;
 	
+	private String description;
+
 	private Integer status;
 	
 	private String createDate;
@@ -20,4 +22,6 @@ public class ParentDepartmentDetailResponse {
 	private String createBy;
 	
 	private String updateBy;
+	
+	private CompanyDetailResponse company;
 }

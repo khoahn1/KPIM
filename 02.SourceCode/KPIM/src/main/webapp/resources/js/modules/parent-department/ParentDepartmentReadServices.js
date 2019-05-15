@@ -1,7 +1,14 @@
 'use strict';
 
 myapp.service('ParentDepartmentReadService',['$http', function ($http) {
-	this.getAll = function getAll(request){
+	this.getAll = function getAll(){
+    	return $http({
+    		method: 'GET',
+    		url: 'parent-departments/parent-department-read',
+    		headers: 'Accept:application/json'
+    	});
+    },
+    this.findAll = function findAll(request){
     	return $http({
     		method: 'POST',
     		url: 'parent-departments/parent-department-read',

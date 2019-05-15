@@ -10,7 +10,9 @@ public class ParentDepartmentDetailResDto {
 	private String parentDepartmentCode;
 	
 	private String parentDepartmentName;
-	
+
+	private String description;
+
 	private Integer status;
 	
 	private String createDate;
@@ -20,4 +22,6 @@ public class ParentDepartmentDetailResDto {
 	private String createBy;
 	
 	private String updateBy;
+	
+	private CompanyDetailResDto company;
 }

@@ -36,7 +36,6 @@ import com.fsoft.khoahn.model.request.ParentDepartmentReadRequest;
 import com.fsoft.khoahn.model.request.ParentDepartmentUpdateRequest;
 import com.fsoft.khoahn.model.response.ParentDepartmentDetailResponse;
 import com.fsoft.khoahn.model.response.ParentDepartmentReadResponse;
-import com.fsoft.khoahn.model.response.ParentDepartmentUpdateResponse;
 import com.fsoft.khoahn.service.ParentDepartmentService;
 
 import io.swagger.annotations.Api;
@@ -50,13 +49,24 @@ public class ParentDepartmentController {
 
 	@Autowired
 	private ParentDepartmentService parentDepartmentService;
+	
 	@Autowired
 	MessageSource messageSource;
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@RequestMapping(value = "/parent-department-read", method = RequestMethod.GET)
+	public ResponseEntity<?> getAll() {
+		List<ParentDepartmentDetailResDto> parentDepartmentDetailResDtos = parentDepartmentService.getAll();
+		Type typeParentDepartments = new TypeToken<List<ParentDepartmentDetailResponse>>() {
+		}.getType();
+		List<ParentDepartmentDetailResponse> parentDepartmentDetailResponses = modelMapper.map(parentDepartmentDetailResDtos,
+				typeParentDepartments);
+		return new ResponseEntity<>(parentDepartmentDetailResponses, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/parent-department-read", method = RequestMethod.POST)
-	public ResponseEntity<?> getAll(@RequestBody ParentDepartmentReadRequest parentDepartmentReadRequest) {
+	public ResponseEntity<?> search(@RequestBody ParentDepartmentReadRequest parentDepartmentReadRequest) {
 		logger.debug("get parentDepartment list");
 		ParentDepartmentReadResponse response = new ParentDepartmentReadResponse();
 		ParentDepartmentReadReqDto parentDepartmentReadReqDto = modelMapper.map(parentDepartmentReadRequest,
@@ -75,14 +85,14 @@ public class ParentDepartmentController {
 		response.setParentDepartments(page);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-
+	
 	@RequestMapping(value = "/parent-department-create", method = RequestMethod.POST)
 	public ResponseEntity<?> createParentDepartment(
 			@Validated @RequestBody ParentDepartmentCreateRequest parentDepartmentCreateRequest)
 			throws InvalidFileException, IOException {
 		logger.debug("save parentDepartment");
 		ParentDepartmentCreateReqDto parentDepartmentCreateReqDto = modelMapper.map(parentDepartmentCreateRequest,
-				ParentDepartmentCreateReqDto.class);
+				ParentDepartmentCreateReqDto.class);	
 		String parentDepartmentCode = parentDepartmentCreateRequest.getParentDepartmentCode();
 		if (parentDepartmentService.isExitParentDepartmentCode(parentDepartmentCode)) {
 			String saveErrorMessage = messageSource.getMessage("is.exit.data",
@@ -99,7 +109,6 @@ public class ParentDepartmentController {
 	@RequestMapping(value = "/parent-department-update", method = RequestMethod.GET)
 	public ResponseEntity<?> getParentDepartment(@RequestParam(value = "id") String id) {
 		logger.debug("get parentDepartment");
-		ParentDepartmentUpdateResponse response = new ParentDepartmentUpdateResponse();
 		ParentDepartmentDetailResDto parentDepartmentDetailResDto = parentDepartmentService.findOne(id);
 		if (parentDepartmentDetailResDto == null) {
 			String viewErrorMessage = messageSource.getMessage("data.not.found", new String[] {},
@@ -108,8 +117,7 @@ public class ParentDepartmentController {
 		}
 		ParentDepartmentDetailResponse parentDepartment = modelMapper.map(parentDepartmentDetailResDto,
 				ParentDepartmentDetailResponse.class);
-		response.setParentDepartment(parentDepartment);
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return new ResponseEntity<>(parentDepartment, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/parent-department-update", method = RequestMethod.POST)

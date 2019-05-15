@@ -396,12 +396,20 @@ myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, D
                     },
                     function error(response) {
                         if (response.status === 400) {
-                            let data = response.data;
-                            let validationErrorsTemplate = kendo.template($("#validationErrors").html())(data);
-                            DialogService.error({
-                                title: 'ERROR',
-                                content: validationErrorsTemplate
-                            });
+                            if (angular.isArray(response.data)) {
+                                let validationErrors = [];
+                                response.data.forEach(item => {
+                                    if (!validationErrors[item.index]){
+                                        validationErrors[item.index] = [];
+                                    }
+                                    validationErrors[item.index].push(item.message);
+                                });
+                                let validationErrorsTemplate = kendo.template($("#validationErrors").html())(validationErrors);
+                                DialogService.error({
+                                    title: 'ERROR',
+                                    content: validationErrorsTemplate
+                                });
+                            }
                         }
                     }
                 );

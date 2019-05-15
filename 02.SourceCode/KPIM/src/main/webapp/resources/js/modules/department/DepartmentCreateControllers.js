@@ -1,11 +1,14 @@
 'use strict';
 
 myapp.controller('DepartmentCreateController', function($rootScope, $scope, $state, Session, USER_ROLES, $localStorage,
-				$sessionStorage, $ngConfirm, $routeParams, $log, $uibModalInstance, ngTableParams, DepartmentCreateService) {
+				$sessionStorage, $ngConfirm, $routeParams, $log, $uibModalInstance, ngTableParams, DepartmentCreateService, ParentDepartmentReadService) {
 	
 	$scope.departmentAuthorityCreateResquest = {};
 	
 	$scope.initForm = function() {
+		ParentDepartmentReadService.getAll().then(function success(response) {
+            $scope.parentDepartments = response.data;
+        });
 	};
 	
     $scope.createDepartment = function () {

@@ -86,4 +86,10 @@ public class CompanyServiceImpl implements CompanyService {
 		companyRepo.deleteById(companyDeleteReqDto.getId());
 	}
 
+	@Override
+	public List<CompanyDetailResDto> getAll() {
+		return modelMapper.map(companyRepo.findAll(), new TypeToken<List<CompanyDetailResDto>>() {
+		}.getType());
+	}
+
 }

@@ -21,7 +21,9 @@ import com.fsoft.khoahn.dto.req.ParentDepartmentSearchReqDto;
 import com.fsoft.khoahn.dto.req.ParentDepartmentUpdateReqDto;
 import com.fsoft.khoahn.dto.req.SortReqDto;
 import com.fsoft.khoahn.dto.res.ParentDepartmentDetailResDto;
+import com.fsoft.khoahn.repository.CompanyRepo;
 import com.fsoft.khoahn.repository.ParentDepartmentRepo;
+import com.fsoft.khoahn.repository.entity.CompanyEntity;
 import com.fsoft.khoahn.repository.entity.ParentDepartmentEntity;
 import com.fsoft.khoahn.service.ParentDepartmentService;
 
@@ -30,6 +32,9 @@ import com.fsoft.khoahn.service.ParentDepartmentService;
 public class ParentDepartmentServiceImpl implements ParentDepartmentService {
 	@Autowired
 	private ParentDepartmentRepo parentDepartmentRepo;
+	
+	@Autowired
+	private CompanyRepo companyRepo;
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -78,6 +83,7 @@ public class ParentDepartmentServiceImpl implements ParentDepartmentService {
 	public void save(ParentDepartmentCreateReqDto parentDepartmentCreateReqDto) {
 		ParentDepartmentEntity parentDepartmentEntity = modelMapper.map(parentDepartmentCreateReqDto,
 				ParentDepartmentEntity.class);
+		parentDepartmentEntity.setStatus(1);
 		parentDepartmentRepo.save(parentDepartmentEntity);
 	}
 
@@ -85,6 +91,8 @@ public class ParentDepartmentServiceImpl implements ParentDepartmentService {
 	public void update(ParentDepartmentUpdateReqDto parentDepartmentUpdateReqDto) {
 		ParentDepartmentEntity parentDepartmentEntity = modelMapper.map(parentDepartmentUpdateReqDto,
 				ParentDepartmentEntity.class);
+		CompanyEntity companyEntity = companyRepo.findById(parentDepartmentEntity.getCompany().getId()).get();
+		parentDepartmentEntity.setCompany(companyEntity);
 		parentDepartmentRepo.save(parentDepartmentEntity);
 
 	}

@@ -5,6 +5,17 @@
 	<form name="myForm" method="POST" novalidate class="form-horizontal">
 		<div class="row">
 			<div class="col-sm-12">
+				<div class="form-group" ng-class="{'has-error' : myForm.parentDepartment.$invalid}">
+					<label for="parentDepartment" class="col-sm-3 control-label">Parent Department</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<select chosen data-placeholder="Select a Parent Department" class="w-100" id="parentDepartment" name="parentDepartment"
+								ng-model="department.parentDepartment"
+								ng-options="parentDepartment.parentDepartmentName for parentDepartment in parentDepartments track by parentDepartment.id"></select>
+						</div>
+						<small class="help-block" ng-show="myForm.parentDepartment.$invalid">{{myForm.parentDepartment.$error.message}}</small>
+					</div>
+				</div>
 				<div class="form-group" ng-class="{'has-error' : myForm.departmentCode.$invalid}">
 					<label for="departmentCode" class="col-sm-3 control-label">Department code</label>
 					<div class="col-sm-9">

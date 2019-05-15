@@ -54,8 +54,17 @@ public class CompanyController {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@RequestMapping(value = "/company-read", method = RequestMethod.GET)
+	public ResponseEntity<?> getAll() {
+		List<CompanyDetailResDto> companyDetailResDtos = companyService.getAll();
+		Type typeCompanies = new TypeToken<List<CompanyDetailResponse>>() {
+		}.getType();
+		List<CompanyDetailResponse> companyDetailResponses = modelMapper.map(companyDetailResDtos, typeCompanies);
+		return new ResponseEntity<>(companyDetailResponses, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/company-read", method = RequestMethod.POST)
-	public ResponseEntity<?> getAll(@RequestBody CompanyReadRequest companyReadRequest) {
+	public ResponseEntity<?> findAll(@RequestBody CompanyReadRequest companyReadRequest) {
 		logger.debug("get companies list");
 		CompanyReadResponse response = new CompanyReadResponse();
 		CompanyReadReqDto companyReadReqDto = modelMapper.map(companyReadRequest, CompanyReadReqDto.class);

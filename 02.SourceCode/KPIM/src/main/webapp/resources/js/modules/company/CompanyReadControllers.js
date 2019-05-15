@@ -51,7 +51,7 @@ myapp.controller('CompanyReadController', function($rootScope, $scope, $state, S
 				} else {
 					$scope.companyReadRequest.sortRequest = angular.copy($scope.initData.sortRequest);
 				}
-				CompanyReadService.getAll($scope.companyReadRequest).then(function success(response) {
+				CompanyReadService.findAll($scope.companyReadRequest).then(function success(response) {
 					options.success(response.data.companies);
 				});
 			}

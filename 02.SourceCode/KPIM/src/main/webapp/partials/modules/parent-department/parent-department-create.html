@@ -5,35 +5,60 @@
 	<form name="myForm" method="POST" novalidate class="form-horizontal">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="form-group" ng-class="{'has-error' : myForm.parentDepartmentCode.$invalid}">
-					<label for="parentDepartmentCode" class="col-sm-3 control-label">ParentDepartment code</label>
+				<div class="form-group"
+					ng-class="{'has-error' : myForm.parentDepartmentCode.$invalid}">
+					<label for="parentDepartmentCode" class="col-sm-3 control-label">ParentDepartment
+						code</label>
 					<div class="col-sm-9">
 						<div class="fg-line">
-							<input type="text" class="form-control" id="parentDepartmentCode" ng-model="parentDepartment.parentDepartmentCode" name="parentDepartmentCode"
+							<input type="text" class="form-control" id="parentDepartmentCode"
+								ng-model="parentDepartment.parentDepartmentCode"
+								name="parentDepartmentCode"
 								placeholder="Please input parentDepartmentCode...">
 						</div>
-						<small class="help-block" ng-show="myForm.parentDepartmentCode.$invalid">{{myForm.parentDepartmentCode.$error.message}}</small>
+						<small class="help-block"
+							ng-show="myForm.parentDepartmentCode.$invalid">{{myForm.parentDepartmentCode.$error.message}}</small>
 					</div>
 				</div>
-				<div class="form-group" ng-class="{'has-error' : myForm.parentDepartmentName.$invalid}">
-					<label for="parentDepartmentName" class="col-sm-3 control-label">ParentDepartment name</label>
+				<div class="form-group"
+					ng-class="{'has-error' : myForm.parentDepartmentName.$invalid}">
+					<label for="parentDepartmentName" class="col-sm-3 control-label">ParentDepartment
+						name</label>
 					<div class="col-sm-9">
 						<div class="fg-line">
-							<input type="text" class="form-control" id="parentDepartmentName" ng-model="parentDepartment.parentDepartmentName" name="parentDepartmentName"
+							<input type="text" class="form-control" id="parentDepartmentName"
+								ng-model="parentDepartment.parentDepartmentName"
+								name="parentDepartmentName"
 								placeholder="Please input parentDepartmentName...">
 						</div>
-						<small class="help-block" ng-show="myForm.parentDepartmentName.$invalid">{{myForm.parentDepartmentName.$error.message}}</small>
+						<small class="help-block"
+							ng-show="myForm.parentDepartmentName.$invalid">{{myForm.parentDepartmentName.$error.message}}</small>
 					</div>
 				</div>
 
-				<div class="form-group" ng-class="{'has-error' : myForm.description.$invalid}">
+				<div class="form-group"
+					ng-class="{'has-error' : myForm.description.$invalid}">
 					<label for="description" class="col-sm-3 control-label">Description</label>
 					<div class="col-sm-9">
 						<div class="fg-line">
-							<input type="text" class="form-control" id="description" ng-model="parentDepartment.description" name="description"
+							<input type="text" class="form-control" id="description"
+								ng-model="parentDepartment.description" name="description"
 								placeholder="Please input description...">
 						</div>
 						<small class="help-block" ng-show="myForm.description.$invalid">{{myForm.description.$error.message}}</small>
+					</div>
+				</div>
+				<div class="form-group"
+					ng-class="{'has-error' : myForm.company.$invalid}">
+					<label for="company" class="col-sm-3 control-label">Company</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<select chosen data-placeholder="Select a company"
+								class="w-100" id="company" name="company"
+								ng-model="parentDepartment.company"
+								ng-options="company.companyName for company in companies track by company.id"></select>
+						</div>
+						<small class="help-block" ng-show="myForm.company.$invalid">{{myForm.company.$error.message}}</small>
 					</div>
 				</div>
 			</div>
@@ -41,6 +66,7 @@
 	</form>
 </div>
 <div class="modal-footer">
-	<button ng-click="createParentDepartment()" class="btn btn-raised btn-small btn-primary">Create</button>
+	<button ng-click="createParentDepartment()"
+		class="btn btn-raised btn-small btn-primary">Create</button>
 	<button ng-click="cancel()" class="btn btn-raised btn-default">Cancel</button>
 </div>

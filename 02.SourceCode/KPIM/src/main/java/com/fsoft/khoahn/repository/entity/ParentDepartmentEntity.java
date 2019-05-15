@@ -33,7 +33,7 @@ public class ParentDepartmentEntity extends Auditable<String> {
 	private String id;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "company_id", insertable = false, updatable = false)
+	@JoinColumn(name = "company_id")
 	private CompanyEntity company;
 
 	@Column(name = "parentDepartment_code")
@@ -42,6 +42,9 @@ public class ParentDepartmentEntity extends Auditable<String> {
 	@Column(name = "parentDepartment_name")
 	private String parentDepartmentName;
 	
+	@Column(name = "description")
+	private String description;
+
 	@Column(name="status")
 	private Integer status;
 	

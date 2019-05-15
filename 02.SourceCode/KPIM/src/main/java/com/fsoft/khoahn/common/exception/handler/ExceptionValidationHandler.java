@@ -7,7 +7,6 @@ import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,11 +38,14 @@ public class ExceptionValidationHandler extends ResponseEntityExceptionHandler {
 	private Object processFieldErrors(List<FieldError> errors) {
 		List<MessageDto> messages = new ArrayList<>();
 		MessageDto message = null;
+
 		if (errors != null && !errors.isEmpty()) {
+		    String fieldName = null;
+		    String msg = null;
 			for (FieldError error : errors) {
-				Locale currentLocale = LocaleContextHolder.getLocale();
-				String msg = msgSource.getMessage(error.getDefaultMessage(), error.getArguments(), currentLocale);
-				message = new MessageDto(MessageType.ERROR, msg, error.getField(), error.getCode());
+				fieldName = parseFieldName(error.getField());
+				msg = msgSource.getMessage(error.getDefaultMessage(), new Object[] {fieldName}, Locale.getDefault());
+				message = new MessageDto(MessageType.ERROR, msg, fieldName, error.getCode());
 				message.setIndex(getIndexError(error.getField()));
 				messages.add(message);
 			}
@@ -100,4 +102,18 @@ public class ExceptionValidationHandler extends ResponseEntityExceptionHandler {
 	    }
 	    return 0;
 	}
+
+	private String parseFieldName(String fieldName) {
+	    if (StringUtils.contains(fieldName, "[") && StringUtils.contains(fieldName, "]")) {
+	        String[] fieldNameSplitted = fieldName.split("[.]");
+	        int splittedSize = fieldNameSplitted.length;
+	        if (splittedSize > 2) {
+	            return fieldNameSplitted[splittedSize - 2];
+	        } else if (splittedSize == 2) {
+	            return fieldNameSplitted[splittedSize - 1];
+	        }
+	    }
+	    return fieldName;
+	}
+
 }

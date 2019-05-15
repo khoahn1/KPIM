@@ -11,5 +11,9 @@ public class ParentDepartmentUpdateRequest {
 	
 	private String parentDepartmentCode;
 	
+	private String description;
+
 	private String status;
+	
+	private CompanyDetailReqDto company;
 }
