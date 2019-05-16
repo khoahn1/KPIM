@@ -1,6 +1,7 @@
 package com.fsoft.khoahn.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 
@@ -9,6 +10,7 @@ import com.fsoft.khoahn.dto.req.TypeOfWorkDeleteReqDto;
 import com.fsoft.khoahn.dto.req.TypeOfWorkReadReqDto;
 import com.fsoft.khoahn.dto.req.TypeOfWorkUpdateReqDto;
 import com.fsoft.khoahn.dto.res.TypeOfWorkDetailResDto;
+import com.fsoft.khoahn.repository.entity.TypeOfWorkEntity;
 
 public interface TypeOfWorkService {
 
@@ -25,5 +27,7 @@ public interface TypeOfWorkService {
 	void delete(TypeOfWorkDeleteReqDto typeOfWorkDeleteReqDto);
 
 	List<TypeOfWorkDetailResDto> findAll();
+
+	Map<String, TypeOfWorkEntity> getTypeOfWorkMap();
 
 }

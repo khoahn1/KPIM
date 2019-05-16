@@ -2,6 +2,8 @@ package com.fsoft.khoahn.service.impl;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -90,6 +92,12 @@ public class PhaseServiceImpl implements PhaseService {
     @Override
     public List<PhaseDetailResDto> findAll() {
         return modelMapper.map(phaseRepo.findAll(), new TypeToken<List<PhaseDetailResDto>>() {}.getType()) ;
+    }
+
+    @Override
+    public Map<String, PhaseEntity> getPhaseMap() {
+        return phaseRepo.findAll().stream()
+                .collect(Collectors.toMap(PhaseEntity::getPhaseCode, phase -> phase));
     }
 
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, DialogService) {
+myapp.controller('WorkLogReadController', function($scope, $rootScope, $state, WorkLogReadService, DialogService) {
 
     $scope.typeOfWorkList = []; 
     $scope.phaseList = [];
@@ -222,14 +222,14 @@ myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, D
                 field:"logDate",
                 title: "Date",
                 width: 130,
-                template: "#=kendo.toString(logDate, 'dd/MM/yyyy')#",
+                template: "#= logDate ? kendo.toString(logDate, 'dd/MM/yyyy') : '' #",
                 editor: $scope.logDateEditor    
             },
             {
                 field: "task.product",
                 title: "Products",
                 width: 200,
-                template: "#=task.product.productName#",
+                template: "#= (task && task.product && task.product.productName) ? task.product.productName : '' #",
                 editor: function(container, options) {
                     $scope.dropDownListEditor(container, options, $scope.productList, 'productName', 'id');
                 } 
@@ -238,7 +238,7 @@ myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, D
                 field: "task.phase",
                 title: "Phases",
                 width: 100,
-                template: "#=task.phase.phaseCode#",
+                template: "#= (task && task.phase && task.phase.phaseCode) ? task.phase.phaseCode : ''#",
                 editor: function(container, options) {
                     $scope.dropDownListEditor(container, options, $scope.phaseList, 'phaseCode', 'id');
                 }
@@ -262,7 +262,7 @@ myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, D
                 field: "typeOfWork",
                 title: "Type of work",
                 width: 100,
-                template: "#=typeOfWork.typeName#",
+                template: "#= (typeOfWork && typeOfWork.typeName) ? typeOfWork.typeName : '' #",
                 editor: function(container, options) {
                     $scope.dropDownListEditor(container, options, $scope.typeOfWorkList, 'typeName', 'id');
                 }
@@ -291,7 +291,7 @@ myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, D
                 field: "unit",
                 title: "Unit",
                 width: 90,
-                template: "#=unit.unitName#",
+                template: "#= (unit && unit.unitName) ? unit.unitName : '' #",
                 editor: function(container, options) {
                     $scope.dropDownListEditor(container, options, $scope.unitList, 'unitName', 'id');
                 }
@@ -506,6 +506,7 @@ myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, D
                                 $scope.workLogGridOptions.dataSource.read();
                                 angular.element('#btnSaveChanges').hide();
                                 angular.element('#btnCancelChanges').hide();
+                                angular.element('#btnDelete').hide();
                                 $scope.notification.show({
                                     title: "Delete WorkLogs",
                                     message: response.data.message
@@ -524,7 +525,7 @@ myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, D
     }
 
     $scope.importWorkLogs = function() {
-
+        $state.go('worklogs.import');
     }
 
     $scope.exportWorkLogs = function() {
@@ -544,6 +545,14 @@ myapp.controller('WorkLogReadController', function($scope, WorkLogReadService, D
             return unitList.find(unit => unit.unitName === unitName);
         }
     }
+
+    $scope.$on("reload-worklog", function(event, opt) {
+        $scope.workLogGridOptions.dataSource.read();
+        $scope.notification.show({
+            title: opt.title,
+            message: opt.message
+        }, opt.notificationType);
+    });
 
     $scope.init = function() {
         $scope.workLogReadRequest = angular.copy($scope.initData);

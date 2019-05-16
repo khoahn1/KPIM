@@ -1,8 +1,11 @@
 package com.fsoft.khoahn.service.impl;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +25,30 @@ import com.fsoft.khoahn.dto.req.WorkLogCreateReqDto;
 import com.fsoft.khoahn.dto.req.WorkLogDeleteReqDto;
 import com.fsoft.khoahn.dto.req.WorkLogReadReqDto;
 import com.fsoft.khoahn.dto.res.WorkLogDetailResDto;
+import com.fsoft.khoahn.model.WorkLogImportExportContent;
+import com.fsoft.khoahn.repository.PhaseRepo;
+import com.fsoft.khoahn.repository.ProductRepo;
 import com.fsoft.khoahn.repository.TaskRepo;
 import com.fsoft.khoahn.repository.UserRepo;
 import com.fsoft.khoahn.repository.WorkLogRepo;
+import com.fsoft.khoahn.repository.entity.PhaseEntity;
+import com.fsoft.khoahn.repository.entity.ProductEntity;
 import com.fsoft.khoahn.repository.entity.TaskEntity;
+import com.fsoft.khoahn.repository.entity.TypeOfWorkEntity;
+import com.fsoft.khoahn.repository.entity.UnitEntity;
 import com.fsoft.khoahn.repository.entity.UserEntity;
 import com.fsoft.khoahn.repository.entity.WorkLogEntity;
 import com.fsoft.khoahn.security.SecurityUtils;
+import com.fsoft.khoahn.service.PhaseService;
+import com.fsoft.khoahn.service.ProductService;
+import com.fsoft.khoahn.service.TypeOfWorkService;
+import com.fsoft.khoahn.service.UnitService;
 import com.fsoft.khoahn.service.WorkLogService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class WorkLogServiceImpl implements WorkLogService {
 
     @Autowired
@@ -42,6 +59,18 @@ public class WorkLogServiceImpl implements WorkLogService {
     private UserRepo userRepo;
     @Autowired
     private TaskRepo taskRepo;
+    @Autowired
+    private ProductRepo productRepo;
+    @Autowired
+    private PhaseRepo phaseRepo;
+    @Autowired
+    private UnitService unitService;
+    @Autowired
+    private PhaseService phaseService;
+    @Autowired
+    private TypeOfWorkService typeOfWorkService;
+    @Autowired
+    private ProductService productService;
 
     @Override
     public Page<WorkLogDetailResDto> findAll(WorkLogReadReqDto workLogReadReqDto) {
@@ -120,6 +149,84 @@ public class WorkLogServiceImpl implements WorkLogService {
         }
 
         return String.format("[%s][%s]", productName, phaseCode);
+    }
+
+    @Override
+    public void imports(List<WorkLogImportExportContent> importDatas) {
+        Map<String, UnitEntity> unitMap = unitService.getUnitMap();
+        Map<String, PhaseEntity> phaseMap = phaseService.getPhaseMap();
+        Map<String, TypeOfWorkEntity> typeOfWorkMap = typeOfWorkService.getTypeOfWorkMap();
+        Map<String, ProductEntity> productMap = productService.getProductMap();
+
+        UserEntity userEntity = userRepo.findByUsername(SecurityUtils.getCurrentLogin());
+        WorkLogEntity workLogEntity = null;
+        TaskEntity taskEntity = null;
+        UnitEntity unitEntity = null;
+        ProductEntity productEntity = null;
+        PhaseEntity phaseEntity = null;
+        TypeOfWorkEntity typeOfWorkEntity = null;
+
+        for (WorkLogImportExportContent importData : importDatas) {
+            unitEntity = unitMap.get(importData.getUnit());
+            typeOfWorkEntity = typeOfWorkMap.get(importData.getTypeOfWork());
+            productEntity = productMap.get(importData.getComponent());
+            phaseEntity = phaseMap.get(importData.getPhase());
+
+            workLogEntity = new WorkLogEntity();
+            workLogEntity.setId(null);
+
+            try {
+                workLogEntity.setActualEffort(Double.parseDouble(importData.getActualEffort()));
+            } catch (NumberFormatException e) {
+                log.error(e.getMessage(), e);
+                workLogEntity.setActualEffort(0d);
+            }
+
+            try {
+                workLogEntity.setQuantity(Double.parseDouble(importData.getQuantity()));
+            } catch (NumberFormatException e) {
+                log.error(e.getMessage(), e);
+                workLogEntity.setQuantity(0d);
+            }
+
+            try {
+                Date logDate = HSSFDateUtil.getJavaDate(Double.parseDouble(importData.getLogDate()));
+                workLogEntity.setLogDate(logDate);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+                workLogEntity.setLogDate(null);
+            }
+
+            workLogEntity.setAnken(importData.getAnken());
+            workLogEntity.setScreen(importData.getScreen());
+            workLogEntity.setDescription(importData.getDescription());
+            workLogEntity.setIssue(importData.getIssue());
+            workLogEntity.setNotes(importData.getNotes());
+            workLogEntity.setUnit(unitEntity);
+            workLogEntity.setTypeOfWork(typeOfWorkEntity);
+
+            if (productEntity != null && phaseEntity != null) {
+                taskEntity =
+                        taskRepo.findByProductIdAndPhaseIdAndUserId(
+                                productEntity.getId(), phaseEntity.getId(), userEntity.getId());
+                if (workLogEntity.getUnit() == null) {
+                    workLogEntity.setUnit(phaseEntity.getUnit());
+                }
+                if (taskEntity != null) {
+                    workLogEntity.setTask(taskEntity);
+                    workLogRepo.save(workLogEntity);
+                } else {
+                    taskEntity = new TaskEntity();
+                    taskEntity.setId(null);
+                    taskEntity.setProduct(productEntity);
+                    taskEntity.setPhase(phaseEntity);
+                    taskEntity.setUser(userEntity);
+                    taskEntity.setTaskCode(generateTaskCode(taskEntity));
+                    workLogEntity.setTask(taskEntity);
+                    workLogRepo.save(workLogEntity);
+                }
+            }
+        }
     }
 
 }

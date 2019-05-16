@@ -88,7 +88,7 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('projects.project-create', {
+	}).state('projects.project-read.project-create', {
 		url: '/project-create',
 		templateUrl: 'partials/modules/project/project-create.html',
 		controller: 'ProjectCreateController',
@@ -96,7 +96,7 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('projects.project-update', {
+	}).state('projects.project-read.project-update', {
 		url: '/project-update',
 		templateUrl: 'partials/modules/project/project-update.html',
 		controller: 'ProjectUpdateController',
@@ -104,7 +104,7 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
 		}
-	}).state('projects.project-import', {
+	}).state('projects.project-read.project-import', {
 		url: '/project-import',
 		templateUrl: 'partials/modules/project/project-import.html',
 		controller: 'ProjectImportController',
@@ -196,6 +196,14 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 		url: '/task-import',
 		templateUrl: 'partials/modules/task/task-import.html',
 		controller: 'TaskImportController',
+		access: {
+			loginRequired: true,
+			authorizedRoles: [USER_ROLES.all]
+		}
+	}).state('worklogs.import', {
+		url: '/worklogs-import',
+		templateUrl: 'partials/modules/worklog/worklog-import.html',
+		controller: 'WorkLogImportController',
 		access: {
 			loginRequired: true,
 			authorizedRoles: [USER_ROLES.all]
@@ -310,9 +318,10 @@ myapp.config(function($stateProvider, modalStateProvider, $urlRouterProvider, US
 	.state('projects', {
 		url: '/projects',
 		templateUrl: 'partials/views/common-2.html',
+	    redirectTo: 'projects.project-read',
 	})
 	.state('projects.project-read', {
-		url: '/project-read',
+		url: '',
 		templateUrl: 'partials/modules/project/project-read.html',
 		controller: 'ProjectReadController',
 		access: {

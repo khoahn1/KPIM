@@ -1,6 +1,7 @@
 package com.fsoft.khoahn.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 
@@ -9,6 +10,7 @@ import com.fsoft.khoahn.dto.req.ProductDeleteReqDto;
 import com.fsoft.khoahn.dto.req.ProductReadReqDto;
 import com.fsoft.khoahn.dto.req.ProductUpdateReqDto;
 import com.fsoft.khoahn.dto.res.ProductDetailResDto;
+import com.fsoft.khoahn.repository.entity.ProductEntity;
 
 public interface ProductService {
 
@@ -25,5 +27,7 @@ public interface ProductService {
     void delete(ProductDeleteReqDto productDeleteReqDto);
 
     List<ProductDetailResDto> findAll();
+
+    Map<String, ProductEntity> getProductMap();
 
 }

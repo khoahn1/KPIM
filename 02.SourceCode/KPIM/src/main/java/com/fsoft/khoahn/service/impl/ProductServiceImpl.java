@@ -2,6 +2,8 @@ package com.fsoft.khoahn.service.impl;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -95,6 +97,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDetailResDto> findAll() {
         return modelMapper.map(productRepo.findAll(Sort.by(Direction.DESC, "productName")), new TypeToken<List<ProductDetailResDto>>() {}.getType());
+    }
+
+    @Override
+    public Map<String, ProductEntity> getProductMap() {
+        return productRepo.findAll().stream()
+                .collect(Collectors.toMap(ProductEntity::getProductName, product -> product));
     }
 
 }

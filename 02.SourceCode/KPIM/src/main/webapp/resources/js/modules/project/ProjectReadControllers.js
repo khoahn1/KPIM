@@ -348,11 +348,11 @@ myapp.controller('ProjectReadController', function($rootScope, $scope, $state, S
     });
 	
 	$scope.createNewProject = function() {
-        $state.go('projects.project-create');
+        $state.go('projects.project-read.project-create');
     }
 	
     $scope.importProject = function() {
-        $state.go('projects.project-import');
+        $state.go('projects.project-read.project-import');
     }
     
     var allImportExportTaskSize = $rootScope.allImportExportTask.length;

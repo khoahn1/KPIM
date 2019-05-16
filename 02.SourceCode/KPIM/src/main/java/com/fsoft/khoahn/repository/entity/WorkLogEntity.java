@@ -61,7 +61,7 @@ public class WorkLogEntity extends Auditable<String> {
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
     private UnitEntity unit;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     private TaskEntity task;
 
@@ -72,8 +72,5 @@ public class WorkLogEntity extends Auditable<String> {
     @ManyToOne
     @JoinColumn(name = "status", referencedColumnName = "id")
     private StatusEntity status;
-
-    @Column(name = "status", insertable = false, updatable = false)
-    private Integer statusId;
 
 }

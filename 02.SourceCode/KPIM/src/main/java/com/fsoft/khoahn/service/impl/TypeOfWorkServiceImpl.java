@@ -2,6 +2,8 @@ package com.fsoft.khoahn.service.impl;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -92,6 +94,12 @@ public class TypeOfWorkServiceImpl implements TypeOfWorkService {
     @Override
     public List<TypeOfWorkDetailResDto> findAll() {
         return modelMapper.map(typeOfWorkRepo.findAll(), new TypeToken<List<TypeOfWorkDetailResDto>>() {}.getType());
+    }
+
+    @Override
+    public Map<String, TypeOfWorkEntity> getTypeOfWorkMap() {
+        return typeOfWorkRepo.findAll().stream()
+                .collect(Collectors.toMap(TypeOfWorkEntity::getTypeName, tow -> tow));
     }
 
 }

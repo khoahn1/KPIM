@@ -5,6 +5,19 @@
 	<form name="myForm" method="POST" novalidate class="form-horizontal">
 		<div class="row">
 			<div class="col-sm-12">
+				<div class="form-group"
+					ng-class="{'has-error' : myForm.department.$invalid}">
+					<label for="department" class="col-sm-3 control-label">Company</label>
+					<div class="col-sm-9">
+						<div class="fg-line">
+							<select chosen data-placeholder="Select a company"
+								class="w-100" id="company" name="company"
+								ng-model="parentDepartment.company"
+								ng-options="company.companyName for company in companies track by company.id"></select>
+						</div>
+						<small class="help-block" ng-show="myForm.company.$invalid">{{myForm.company.$error.message}}</small>
+					</div>
+				</div>
 				<div class="form-group" ng-class="{'has-error' : myForm.parentDepartmentCode.$invalid}">
 					<label for="parentDepartmentCode" class="col-sm-3 control-label">ParentDepartment code</label>
 					<div class="col-sm-9">
@@ -34,19 +47,6 @@
 								placeholder="Please input description...">
 						</div>
 						<small class="help-block" ng-show="myForm.description.$invalid">{{myForm.description.$error.message}}</small>
-					</div>
-				</div>
-				<div class="form-group"
-					ng-class="{'has-error' : myForm.department.$invalid}">
-					<label for="department" class="col-sm-3 control-label">Company</label>
-					<div class="col-sm-9">
-						<div class="fg-line">
-							<select chosen data-placeholder="Select a company"
-								class="w-100" id="company" name="company"
-								ng-model="parentDepartment.company"
-								ng-options="company.companyName for company in companies track by company.id"></select>
-						</div>
-						<small class="help-block" ng-show="myForm.company.$invalid">{{myForm.company.$error.message}}</small>
 					</div>
 				</div>
 			</div>

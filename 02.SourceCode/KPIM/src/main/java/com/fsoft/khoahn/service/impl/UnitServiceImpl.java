@@ -2,6 +2,8 @@ package com.fsoft.khoahn.service.impl;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -89,6 +91,12 @@ public class UnitServiceImpl implements UnitService {
     @Override
     public List<UnitDetailResDto> findAll() {
         return modelMapper.map(unitRepo.findAll(), new TypeToken<List<UnitDetailResDto>>() {}.getType()) ;
+    }
+
+    @Override
+    public Map<String, UnitEntity> getUnitMap() {
+        return unitRepo.findAll().stream()
+                .collect(Collectors.toMap(UnitEntity::getUnitName, unit -> unit));
     }
 
 }

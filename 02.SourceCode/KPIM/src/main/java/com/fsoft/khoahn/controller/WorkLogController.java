@@ -1,5 +1,6 @@
 package com.fsoft.khoahn.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,15 +15,19 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fsoft.khoahn.common.download.ExcelToObjectMapper;
 import com.fsoft.khoahn.dto.req.WorkLogChangeReqDto;
 import com.fsoft.khoahn.dto.req.WorkLogDeleteReqDto;
 import com.fsoft.khoahn.dto.req.WorkLogReadReqDto;
 import com.fsoft.khoahn.dto.res.WorkLogDetailResDto;
+import com.fsoft.khoahn.model.WorkLogImportExportContent;
+import com.fsoft.khoahn.model.request.FileUploadRequest;
 import com.fsoft.khoahn.model.request.WorkLogChangeRequest;
 import com.fsoft.khoahn.model.request.WorkLogDeleteRequest;
 import com.fsoft.khoahn.model.request.WorkLogReadRequest;
@@ -143,6 +148,30 @@ public class WorkLogController {
         response.setSuccess(success);
         response.setMessage(message);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/worklogs-imports", method = RequestMethod.POST)
+    public ResponseEntity<?> importWorkLogs(@Validated @ModelAttribute FileUploadRequest fileUploadRequest) {
+        logger.debug("Import worklogs");
+        List<String> messages = new ArrayList<String>();
+        String message = null;
+        HttpStatus status = null;
+        try {
+            ExcelToObjectMapper mapper = new ExcelToObjectMapper(fileUploadRequest.getFile());
+            List<WorkLogImportExportContent> dataImportWorkLogs = mapper.map(WorkLogImportExportContent.class);
+            workLogService.imports(dataImportWorkLogs);
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            message = messageSource.getMessage("error.file.upload", new String[] {}, Locale.getDefault());
+            messages.add(message);
+            status = HttpStatus.FORBIDDEN;
+        }
+        if (status == HttpStatus.OK) {
+            message = messageSource.getMessage("import.success", new String[] { "worklogs" }, Locale.getDefault());
+            messages.add(message);
+        }
+        return new ResponseEntity<>(messages, status);
     }
 
 }
